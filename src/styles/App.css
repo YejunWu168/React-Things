@@ -1,0 +1,25 @@
+.App {
+  transition: background 0.2s ease;
+  display: flex;
+  width: 100%;
+}
+
+.wrapper {
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-top: 6rem;
+  width: 100%;
+}
+
+main {
+  margin-top: 2rem;
+}
+
+input {
+  caret-color: #5292f3;
+}
+
+.btn:hover {
+  margin: -1px;
+  border-radius: 0.5rem;
+}

@@ -1,0 +1,10 @@
+.todo-input {
+  padding: 2rem 0;
+  height: 3rem;
+  min-width: 25%;
+  background: transparent;
+}
+
+input::placeholder {
+  color: #acadae;
+}

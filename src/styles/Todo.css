@@ -1,0 +1,167 @@
+.todo {
+  padding: 0.5rem 1rem;
+  margin-left: -1rem;
+  border-radius: 0.4rem;
+  display: flex;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #FFFFF;
+}
+
+.todo-label {
+  display: inline-block;
+  margin-top: 0.1rem;
+}
+
+.toggle {
+  margin-top: 0.2rem;
+}
+
+.edit-field {
+  width: 100%;
+  height: 2rem;
+  margin-top: -2px;
+  background: transparent;
+}
+
+.remove {
+  float: right;
+  color: #acadae;
+  cursor: pointer;
+  background: none;
+  height: 2rem;
+  flex: 1;
+  text-align: right;
+}
+
+.highlight {
+  background: #cbdffe;
+}
+
+.checkbox-clicked {
+  background: rgba(172, 173, 174, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-todo {
+  margin-left: 1rem;
+  margin-top: -0.1rem;
+  width: 100%;
+  position: relative;
+  min-height: 2rem;
+}
+
+.subtask-btn {
+  float: right;
+  background: transparent;
+  border: 0.11rem solid transparent;
+  border-radius: 0.4rem;
+}
+
+.expanded-todo {
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(212, 212, 212, 1);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(212, 212, 212, 1);
+  box-shadow: 0px 0px 7px 1px rgba(212, 212, 212, 1);
+  background: white;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin-left: -1.5rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  z-index: 999;
+}
+
+.fa-list-ul,
+.fa-tag {
+  color: #acadae;
+}
+
+.fa-tag {
+  height: 1.5rem;
+}
+
+.rc-line-container {
+  width: 10rem;
+  right: 1.5rem;
+  margin-left: 1rem;
+  position: absolute;
+}
+
+.completed {
+  color: #acadae;
+}
+
+.subtask-list {
+  margin: 2.5rem 0;
+}
+
+.subtask-list li:first-child {
+  border-top: 1px solid #ededed;
+}
+
+.subtask-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ededed;
+}
+
+/* Tags */
+
+.tags {
+  display: inline-block;
+  margin-left: 1rem;
+  position: relative;
+  top: -0.1rem;
+}
+
+.expanded-tags {
+  float: left;
+}
+
+.tag {
+  padding: 0.01rem 0.8rem;
+  border-radius: 1.5rem;
+  color: #b5b8bb;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-right: 0.5rem;
+  border: 1px solid #b5b8bb;
+  cursor: default;
+  user-select: none;
+}
+
+.expanded-tag {
+  background: #c2dad0;
+  padding: 0.1rem 0.8rem;
+  border-radius: 1.5rem;
+  color: #477562;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.add-tag {
+  height: 25px;
+  display: inline-block;
+  float: right;
+  border-radius: 0.4rem;
+  margin-top: 0.1rem;
+  transition: all 0.2s ease;
+}
+
+.add-tag__input {
+  float: right;
+  background: #f0f1f2;
+  height: 25px;
+  border-radius: 4px;
+  width: 100px;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.secondary-tag__input {
+  margin-top: -4px;
+  height: 25px;
+  border-radius: 4px;
+  width: 100px;
+  padding: 0;
+  transition: all 0.2s ease;
+}
