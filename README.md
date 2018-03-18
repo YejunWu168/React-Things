@@ -33,7 +33,7 @@ Yarn start
 * Delete checked Todos
 * Add Tags
 * Save used tags for future use.
-* See your progress on todos and todos with subtasks enabled.
+* See your progress on todos and individual todos with subtasks enabled.
 
 ### Things Todo
 
