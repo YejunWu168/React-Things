@@ -1,0 +1,33 @@
+.subtasks {
+  margin: 2.5rem 0;
+
+  &__item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ededed;
+    
+    &:first-child {
+      border-top: 1px solid #ededed;
+    }
+  }
+
+  &__field {
+    margin-left: 1rem;
+    width: 85%;
+    height: 2rem;
+    background: transparent;
+  }
+
+  &__checkbox {
+    -webkit-appearance: none;
+    padding: 0.5rem;
+    border: 2px solid rgb(45, 183, 245);
+    border-radius: 1rem;
+    max-width: 0.5rem;
+    display: inline-block;
+  }
+
+  & .fa-check {
+    max-width: 1.4rem;
+    color: #acadae;
+  }
+}

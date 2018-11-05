@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/fontawesome-free-solid";
-import "../styles/Subtask.css";
 
 class Subtask extends React.Component {
   componentDidMount() {
@@ -13,7 +12,7 @@ class Subtask extends React.Component {
       return (
         <div
           type="checkbox"
-          className="subtask-checkbox bounceIn"
+          className="subtasks__checkbox bounceIn"
           onClick={() => this.props.handleSubtaskChecked(this.props.subtask.id)}
         />
       );
@@ -30,10 +29,10 @@ class Subtask extends React.Component {
 
   render() {
     return (
-      <li>
+      <li className="subtasks__item">
         {this.renderCheckbox()}
         <input
-          className={`subtask-field ${this.props.subtask.isChecked ? "completed" : ""}`}
+          className={`subtasks__field ${this.props.subtask.isChecked ? "completed" : ""}`}
           ref={input => {
             this.textInput = input;
           }}

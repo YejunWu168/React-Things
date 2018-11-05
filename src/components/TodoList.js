@@ -1,9 +1,8 @@
 import React from "react";
 import Todo from "./Todo";
-import "../styles/TodoList.css";
 
 const TodoList = props => (
-  <div>
+  <React.Fragment>
     <ul>
       {props.todos.map(todo => (
         <Todo
@@ -21,7 +20,7 @@ const TodoList = props => (
     <footer className="actionbar">
         <button className="actionbar__btn">+</button>
     </footer>
-  </div>
+  </React.Fragment>
 );
 
 export default TodoList;

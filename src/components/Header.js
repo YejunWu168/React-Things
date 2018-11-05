@@ -1,6 +1,5 @@
 import React from "react";
 import { Circle } from "rc-progress";
-import "../styles/Header.css";
 
 const Header = props => (
   <header>

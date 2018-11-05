@@ -1,0 +1,29 @@
+.taglist {
+  background: #27313d;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-top: 3rem;
+  max-height: 17rem;
+  overflow-y: auto;
+
+  & li {
+    padding: 0.5rem;
+    font-weight: 300;
+    border-radius: 0.3rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #5292f3;
+
+      & .fa-tag {
+        color: #fff;
+      }
+    }
+  }
+
+  & .fa-tag {
+    color: #5292f3;
+    margin-right: 0.5rem;
+  }
+}

@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/fontawesome-free-solid";
-import "../styles/TagList.css";
 
 class TagList extends React.Component {
   filteredTags = () => {
