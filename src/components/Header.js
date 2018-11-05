@@ -4,7 +4,7 @@ import "../styles/Header.css";
 
 const Header = props => (
   <header>
-    <div className="circle-container">
+    <div className="progress-container">
       <Circle percent={props.progress} strokeWidth="7" trailWidth="7" strokeColor={props.progressColor()} />
     </div>
     <h1 className="title">{props.title}</h1>

@@ -1,13 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import InboxPage from "../components/pages/InboxPage";
-import TodayPage from "../components/pages/TodayPage";
-import WorkPage from "../components/pages/WorkPage";
-import CustomPage from "../components/pages/CustomPage";
+import SidebarNav from '../components/SidebarNav';
+import InboxPage from "../pages/InboxPage";
+import TodayPage from "../pages/TodayPage";
+import WorkPage from "../pages/WorkPage";
+import CustomPage from "../pages/CustomPage";
 
 const AppRouter = () => (
   <BrowserRouter>
     <div className="container">
+      <SidebarNav />
       <Switch>
         <Route path="/" component={InboxPage} exact={true} />
         <Route path="/today" component={TodayPage} />

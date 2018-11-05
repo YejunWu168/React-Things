@@ -45,12 +45,12 @@ class Todo extends React.Component {
     const tagListState = [...new Set(["Home", "Errand", "Important", "Office", ...this.props.usedTags])];
     const tagList = tagListState.filter(elem => !todoTags.includes(elem));
 
-    this.setState(prevState => ({
+    this.setState({
       editing: true,
       isActive: true,
       listHeight: this.getlistHeight(),
       tagList
-    }));
+    });
   };
 
   handleEditChange = e => {
