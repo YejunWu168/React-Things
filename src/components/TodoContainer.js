@@ -63,13 +63,6 @@ class TodoContainer extends Component {
     this.getProgressTodos();
   };
 
-  handleRemoveSelected = () => {
-    this.setState(prevState => ({
-      todos: prevState.todos.filter(todo => todo.isChecked !== true),
-      showButton: false
-    }));
-  };
-
   handleSaveEdit = (id, val) => {
     const todos = this.state.todos;
     const index = todos.findIndex(x => x.id === id);
@@ -184,7 +177,6 @@ class TodoContainer extends Component {
               showButton={this.state.showButton}
               todos={this.state.todos}
               handleChecked={this.handleChecked}
-              handleRemoveSelected={this.handleRemoveSelected}
               handleSaveEdit={this.handleSaveEdit}
               getProgressTodos={this.getProgressTodos}
               changeBackground={this.changeBackground}
