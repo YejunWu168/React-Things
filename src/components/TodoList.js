@@ -1,9 +1,8 @@
 import React from "react";
 import Todo from "./Todo";
-import "../styles/TodoList.css";
 
 const TodoList = props => (
-  <div>
+  <React.Fragment>
     <ul>
       {props.todos.map(todo => (
         <Todo
@@ -18,18 +17,10 @@ const TodoList = props => (
         />
       ))}
     </ul>
-    <footer className="todo-footer">
-      {props.todos.length > 0 && (
-        <button
-          className="btn"
-          disabled={props.showButton === false ? "disabled" : false}
-          onClick={props.handleRemoveSelected}
-        >
-          Remove selected
-        </button>
-      )}
+    <footer className="actionbar">
+        <button className="actionbar__btn">+</button>
     </footer>
-  </div>
+  </React.Fragment>
 );
 
 export default TodoList;

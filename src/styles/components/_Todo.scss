@@ -5,7 +5,7 @@
   display: flex;
   position: relative;
   transition: all 0.3s ease;
-  background: #FFFFF;
+  background: #FFFFFF;
 }
 
 .todo-label {
@@ -90,18 +90,6 @@
   color: #acadae;
 }
 
-.subtask-list {
-  margin: 2.5rem 0;
-}
-
-.subtask-list li:first-child {
-  border-top: 1px solid #ededed;
-}
-
-.subtask-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ededed;
-}
 
 /* Tags */
 

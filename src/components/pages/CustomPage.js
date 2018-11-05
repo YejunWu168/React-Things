@@ -1,6 +1,6 @@
 import React from "react";
-import App from "../../App";
+import TodoContainer from "../TodoContainer";
 
-const CustomPage = () => <App />;
+const CustomPage = () => <TodoContainer />;
 
 export default CustomPage;

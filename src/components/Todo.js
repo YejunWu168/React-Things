@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/fontawesome-free-solid";
-import "../styles/Todo.css";
 import Subtask from "./Subtask";
 import TagField from "./TagField.js";
 import SecondaryTagField from "./SecondaryTagField";
@@ -45,12 +44,12 @@ class Todo extends React.Component {
     const tagListState = [...new Set(["Home", "Errand", "Important", "Office", ...this.props.usedTags])];
     const tagList = tagListState.filter(elem => !todoTags.includes(elem));
 
-    this.setState(prevState => ({
+    this.setState({
       editing: true,
       isActive: true,
       listHeight: this.getlistHeight(),
       tagList
-    }));
+    });
   };
 
   handleEditChange = e => {
@@ -258,7 +257,7 @@ class Todo extends React.Component {
         }}
       >
         {this.renderLabel()}
-        <ul className="subtask-list" style={{ display: this.state.editing ? "block" : "none" }}>
+        <ul className="subtasks" style={{ display: this.state.editing ? "block" : "none" }}>
           {this.state.subtasks.map(subtask => (
             <Subtask
               key={subtask.id}

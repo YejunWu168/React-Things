@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faInbox, faBriefcase, faStar } from "@fortawesome/fontawesome-free-solid";
-import "../styles/SidebarNav.css";
 import NavLink from "./NavLink.js";
 
 const SidebarNav = props => (

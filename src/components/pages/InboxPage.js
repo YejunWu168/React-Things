@@ -1,6 +1,6 @@
 import React from "react";
-import App from "../../App";
+import TodoContainer from "../TodoContainer";
 
-const InboxPage = () => <App title="Inbox" />;
+const InboxPage = () => <TodoContainer title="Inbox" />;
 
 export default InboxPage;

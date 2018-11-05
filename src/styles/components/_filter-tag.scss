@@ -1,0 +1,29 @@
+.filter-tag {
+  padding: 0.01rem 0.8rem;
+  border-radius: 1.5rem;
+  color: #b5b8bb;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &--all {
+    background: #b5b8bb;
+    color: #fff;
+  }
+
+  &--blue {
+    background: #5292f3;
+    color: #fff;
+    border-color: #5292f3;
+
+    &:hover {
+      border-color: #5292f3;
+    }
+  }
+
+  &:hover {
+    border-color: #b5b8bb;
+  }
+}

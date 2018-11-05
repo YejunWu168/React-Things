@@ -1,0 +1,83 @@
+nav {
+  float: left;
+  height: 100vh;
+  background: rgb(252, 253, 255);
+  border-right: 1px solid #eff0f0;
+  width: 33rem;
+}
+
+.nav-list {
+  list-style: none;
+  padding-left: 2.2rem;
+  padding-right: 2rem;
+
+  & li {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    padding: 0.3rem 1rem 0.3rem 0.5rem;
+    border-radius: 0.4rem;
+    width: 17rem;
+    margin-left: -0.5rem;
+    width: 100%;
+
+    & a {
+      display: inline-block;
+      text-decoration: none;
+      color: #3a3e42;
+      font-size: 1.4rem;
+      width: 100%;
+    }
+  }
+
+  & svg {
+    margin-right: 0.7rem;
+    font-size: 1.7rem;
+  }
+
+  & .active {
+    background: #e4e6e8;
+  }
+
+  & .inbox {
+  margin-bottom: 2rem;
+  margin-top: 2.8rem;
+
+    &-icon {
+      position: relative;
+      bottom: -0.1rem;
+    }
+
+    &-icon path {
+      fill: #51aef2;
+      stroke: #0b92e7;
+      stroke-width: 10;
+    }
+  }
+
+  & .briefcase {
+
+    &-icon path {
+      fill: #cbc088;
+      stroke: #b5a664;
+      stroke-width: 10;
+    }
+  }
+
+  & .star {
+
+    &-icon path {
+      fill: #ffce02;
+      stroke: #efbd02;
+      stroke-width: 10;
+    }
+  }
+}
+
+
+.todo-count {
+  font-weight: 600;
+  color: #acadae;
+  float: right;
+  font-size: 1.4rem;
+  margin-top: 0.1rem;
+}

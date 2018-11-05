@@ -1,6 +1,6 @@
 import React from "react";
-import App from "../../App";
+import TodoContainer from "../TodoContainer";
 
-const WorkPage = () => <App title="Work" />;
+const WorkPage = () => <TodoContainer title="Work" />;
 
 export default WorkPage;

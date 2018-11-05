@@ -1,6 +1,6 @@
 import React from "react";
-import App from "../../App";
+import TodoContainer from "../TodoContainer";
 
-const TodayPage = () => <App title="Today" />;
+const TodayPage = () => <TodoContainer title="Today" />;
 
 export default TodayPage;
