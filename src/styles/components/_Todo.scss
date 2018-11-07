@@ -26,7 +26,7 @@
 
 .remove {
   float: right;
-  color: #acadae;
+  color: $grey;
   cursor: pointer;
   background: none;
   height: 2rem;
@@ -72,7 +72,7 @@
 
 .fa-list-ul,
 .fa-tag {
-  color: #acadae;
+  color: $grey;
 }
 
 .fa-tag {
@@ -87,7 +87,7 @@
 }
 
 .completed {
-  color: #acadae;
+  color: $grey;
 }
 
 

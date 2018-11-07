@@ -3,10 +3,10 @@
 
   &__item {
     padding: 0.5rem 0;
-    border-bottom: 1px solid #ededed;
+    border-bottom: 1px solid $light-grey;
     
     &:first-child {
-      border-top: 1px solid #ededed;
+      border-top: 1px solid $light-grey;
     }
   }
 
@@ -28,6 +28,6 @@
 
   & .fa-check {
     max-width: 1.4rem;
-    color: #acadae;
+    color: $grey;
   }
 }

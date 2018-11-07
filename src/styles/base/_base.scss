@@ -28,8 +28,12 @@ input:focus {
 
 button {
   border: none;
-  padding: 0.3rem 0.4rem 0.3rem 0.5rem;
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: auto;
+  color: $light-grey;
 }
 
 button:hover {
