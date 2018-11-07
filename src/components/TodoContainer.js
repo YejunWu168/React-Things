@@ -2,13 +2,12 @@ import React, {Component} from "react";
 import {string} from 'prop-types';
 
 import Header from "./Header";
-import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import ActionBar from './ActionBar';
 
 
 import uuid from "uuid";
-
+ 
 class TodoContainer extends Component {
   state = {
     todoInput: "",
@@ -200,11 +199,6 @@ class TodoContainer extends Component {
         <div className="wrapper">
           <Header progress={this.state.progress} title={this.props.title} progressColor={this.progressColor} />
           <main>
-            <TodoForm
-              handleChange={this.handleChange}
-              handleAddTodo={this.handleAddTodo}
-              inputValue={this.state.todoInput}
-            />
             {this.renderFilterTags()}
             <TodoList
               todos={this.state.todos}

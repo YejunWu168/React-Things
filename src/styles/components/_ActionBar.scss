@@ -9,6 +9,7 @@
     padding: 0.3rem 0;
 
     &__btn {
+        position: relative;
         width: 15%;
         border: 1px solid transparent;
         border-radius: 0.5rem;
@@ -23,6 +24,10 @@
         & svg.fa-trash {
             width: 1.3rem;
         }
+
+        &:hover > .tooltip {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 }
-
