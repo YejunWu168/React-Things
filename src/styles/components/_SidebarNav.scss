@@ -23,7 +23,7 @@ nav {
     & a {
       display: inline-block;
       text-decoration: none;
-      color: #3a3e42;
+      color: $dark-grey;
       font-size: 1.4rem;
       width: 100%;
     }
@@ -76,7 +76,7 @@ nav {
 
 .todo-count {
   font-weight: 600;
-  color: #acadae;
+  color: $grey;
   float: right;
   font-size: 1.4rem;
   margin-top: 0.1rem;

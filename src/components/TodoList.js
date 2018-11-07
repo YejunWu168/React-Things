@@ -1,8 +1,9 @@
 import React from "react";
+import { array, func} from 'prop-types';
+
 import Todo from "./Todo";
 
 const TodoList = props => (
-  <React.Fragment>
     <ul>
       {props.todos.map(todo => (
         <Todo
@@ -10,17 +11,23 @@ const TodoList = props => (
           todo={todo}
           handleChecked={props.handleChecked}
           handleSaveEdit={props.handleSaveEdit}
+          onSpacebar={props.onSpacebar}
           getProgressTodos={props.getProgressTodos}
           handleAddTag={props.handleAddTag}
-          tagList={props.tagList}
           usedTags={props.usedTags}
         />
       ))}
     </ul>
-    <footer className="actionbar">
-        <button className="actionbar__btn">+</button>
-    </footer>
-  </React.Fragment>
 );
+
+TodoList.propTypes = {
+  todos: array,
+  handleChecked: func,
+  handleSaveEdit: func,
+  handleAddTag: func,
+  onSpacebar: func,
+  getProgressTodos: func,
+  usedTags: array
+}
 
 export default TodoList;

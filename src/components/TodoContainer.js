@@ -1,7 +1,12 @@
 import React, {Component} from "react";
+import {string} from 'prop-types';
+
 import Header from "./Header";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
+import ActionBar from './ActionBar';
+
+
 import uuid from "uuid";
 
 class TodoContainer extends Component {
@@ -9,11 +14,19 @@ class TodoContainer extends Component {
     todoInput: "",
     todos: [],
     savedTodos: [],
-    showButton: false,
+    buttonDisabled: true,
     progress: 0,
     usedTags: [],
     selectedTag: ""
   };
+
+  static propTypes = {
+    title: string
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.onSpacebar);
+  }
 
   handleChange = e => {
     this.setState({
@@ -21,9 +34,15 @@ class TodoContainer extends Component {
     });
   };
 
+  onSpacebar = e => {
+    if (e.keyCode === 32) {
+      this.handleAddTodo();
+    }
+  }
+
   handleAddTodo = e => {
-    e.preventDefault();
-    if (this.state.todoInput.length > 0) {
+   
+
       this.setState({
         todoInput: "",
         todos: [
@@ -38,10 +57,7 @@ class TodoContainer extends Component {
         ]
       });
 
-      localStorage.setItem("todos", JSON.stringify(this.state.todos));
-    } else {
-      alert("Please fill in a To-Do");
-    }
+      document.removeEventListener("keydown", this.onSpacebar);
   };
 
   // handleRemoveTodo = todoToRemove => {
@@ -56,11 +72,29 @@ class TodoContainer extends Component {
     todos[index].isChecked = !todos[index].isChecked;
 
     this.setState({
-      todos,
-      showButton: true
+      todos
+    }, ()=> {
+      const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
+      if (isCheckedCount === 0) {
+        this.setState({
+          buttonDisabled: true
+        });
+      } else {
+        this.setState({
+          buttonDisabled: false
+        });
+      }
     });
 
+
     this.getProgressTodos();
+  };
+
+  handleRemoveSelected = () => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.isChecked !== true),
+      buttonDisabled: true
+    }));
   };
 
   handleSaveEdit = (id, val) => {
@@ -89,7 +123,6 @@ class TodoContainer extends Component {
       .reduce((acc, val) => acc.concat(val))
       .filter((elem, index, arr) => index === arr.indexOf(elem));
 
-    console.log(usedTags);
     this.setState({
       todos,
       usedTags
@@ -107,7 +140,7 @@ class TodoContainer extends Component {
     const todosCount = todos.length;
     const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
 
-    const progress = 100 / todosCount * isCheckedCount;
+    const progress = (100 / todosCount) * isCheckedCount;
 
     this.setState(prevState => ({
       progress: (prevState.progress = progress)
@@ -174,18 +207,22 @@ class TodoContainer extends Component {
             />
             {this.renderFilterTags()}
             <TodoList
-              showButton={this.state.showButton}
               todos={this.state.todos}
               handleChecked={this.handleChecked}
               handleSaveEdit={this.handleSaveEdit}
+              onSpacebar={this.onSpacebar}
               getProgressTodos={this.getProgressTodos}
               changeBackground={this.changeBackground}
               handleAddTag={this.handleAddTag}
-              tagList={this.state.tagList}
               usedTags={this.state.usedTags}
               selectedTag={this.state.selectedTag}
             />
           </main>
+          <ActionBar 
+            handleAddTodo={this.handleAddTodo}
+            buttonDisabled={this.state.buttonDisabled}
+            handleRemoveSelected={this.handleRemoveSelected}
+          />
         </div>
     );
   }

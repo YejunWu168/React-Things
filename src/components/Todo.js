@@ -1,16 +1,20 @@
-import React from "react";
+import React, {Component} from "react";
+import {func, object, array} from 'prop-types'; 
+
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/fontawesome-free-solid";
-import Subtask from "./Subtask";
-import TagField from "./TagField.js";
-import SecondaryTagField from "./SecondaryTagField";
-import onClickOutside from "react-onclickoutside";
 import { Line } from "rc-progress";
 import uuid from "uuid";
 
-class Todo extends React.Component {
+import Subtask from "./Subtask";
+import TagField from "./TagField";
+import SecondaryTagField from "./SecondaryTagField";
+import onClickOutside from "react-onclickoutside";
+
+
+class Todo extends Component {
   state = {
-    editing: false,
+    editing: true,
     editText: this.props.todo.text,
     subtaskInput: "",
     subtasks: [],
@@ -23,6 +27,16 @@ class Todo extends React.Component {
     highlightClass: false,
     tagList: [...new Set(["Home", "Errand", "Important", "Office", ...this.props.usedTags])]
   };
+
+  static propTypes = {
+    todo: object,
+    handleChecked: func,
+    handleSaveEdit: func,
+    onSpacebar: func,
+    getProgressTodos: array,
+    handleAddTag: func,
+    usedTags: array
+  }
 
   componentDidMount() {
     this.props.getProgressTodos();
@@ -71,6 +85,8 @@ class Todo extends React.Component {
         editing: false,
         listHeight: 20
       });
+
+      document.addEventListener("keydown", this.props.onSpacebar);
     }
   };
 
@@ -155,13 +171,14 @@ class Todo extends React.Component {
     }
   };
 
-  handleClickOutside = (id, val) => {
+  handleClickOutside = () => {
     this.setState({
       editing: false,
       isActive: this.state.editing,
       listHeight: 20
     });
     this.props.handleSaveEdit(this.props.todo.id, this.state.editText);
+    document.addEventListener("keydown", this.props.onSpacebar);
   };
 
   handleAddToTagList = tag => {
@@ -319,5 +336,6 @@ class Todo extends React.Component {
     );
   }
 }
+
 
 export default onClickOutside(Todo);
