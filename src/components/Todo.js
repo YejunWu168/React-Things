@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {func, object, array} from 'prop-types'; 
 import store from '../store';
-import { editTodo } from '../actions';
-
+import { editTodo, toggleChecked } from '../actions';
+import { connect } from "react-redux";
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/fontawesome-free-solid";
@@ -33,7 +33,8 @@ class Todo extends Component {
 
   static propTypes = {
     todo: object,
-    handleChecked: func,
+    editTodo: func,
+    toggleChecked: func,
     onSpacebar: func,
     getProgressTodos: func,
     handleAddTag: func,
@@ -82,7 +83,7 @@ class Todo extends Component {
 
   handleKeyDown = e => {
     if (e.key === "Enter") {
-      store.dispatch(editTodo(this.props.todo.id, this.state.editText))
+      this.props.editTodo(this.props.todo.id, this.state.editText);
       this.setState({
         editing: false,
         listHeight: 20
@@ -225,7 +226,8 @@ class Todo extends Component {
       return (
         <div>
           <label className={`todo-label ${this.props.todo.isChecked ? "completed" : ""}`}>
-            {this.props.todo.text.trim() ? (
+            {
+              this.props.todo.text.trim() ? (
               this.props.todo.text
             ) : (
               <span className="placeholder" style={{ color: "grey" }}>
@@ -321,7 +323,7 @@ class Todo extends Component {
           className="toggle"
           type="checkbox"
           onClick={() => {
-            this.props.handleChecked(this.props.todo.id);
+            this.props.toggleChecked(this.props.todo.id);
             if (!this.state.editing && !this.state.isActive) {
               this.handleHighlightClass();
             }
@@ -338,5 +340,9 @@ class Todo extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  editTodo: (id, text) => dispatch(editTodo(id,text)),
+  toggleChecked: id => dispatch(toggleChecked(id))
+});
 
-export default onClickOutside(Todo);
+export default connect(null, mapDispatchToProps)(onClickOutside(Todo));

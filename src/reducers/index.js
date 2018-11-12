@@ -18,7 +18,11 @@ const rootReducer = (state = [], action) => {
         ];
     case "EDIT_TODO": 
     return state.map(
-      todo => todo.id === action.id? {...todo, text: action.payload} : todo
+      todo => todo.id === action.id ? {...todo, text: action.payload} : todo
+    )
+    case "TOGGLE_CHECKED":
+    return state.map(
+      todo => todo.id === action.id ? {...todo, isChecked: !todo.isChecked} : todo
     )
     default:
       return state;

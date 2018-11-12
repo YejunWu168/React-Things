@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-import { string, array } from 'prop-types';
+import { string, func, array } from 'prop-types';
 
 import { addTodo } from '../actions';
-import store from '../store';
 import { connect } from "react-redux";
 
 import Header from "./Header";
@@ -12,7 +11,6 @@ import ActionBar from './ActionBar';
 class TodoContainer extends Component {
   state = {
     todoInput: "",
-    todos: this.props.todos,
     buttonDisabled: true,
     progress: 0,
     usedTags: [],
@@ -21,6 +19,7 @@ class TodoContainer extends Component {
 
   static propTypes = {
     title: string,
+    addTodo: func,
     todos: array
   }
 
@@ -41,7 +40,7 @@ class TodoContainer extends Component {
   }
 
   handleAddTodo = (e) => {
-    store.dispatch(addTodo());
+    this.props.addTodo();
 
     document.removeEventListener("keydown", this.onSpacebar);
   };
@@ -199,4 +198,4 @@ const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(addTodo(text))
 });
 
-export default connect(mapStateToProps)(TodoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);

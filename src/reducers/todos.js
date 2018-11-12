@@ -2,6 +2,7 @@ import uuid from 'uuid';
 
 const todos = (state = [], action) => {
     switch (action.type) {
+        
         case "ADD_TODO":
         return [...state, {
           text: action.payload,
@@ -10,13 +11,18 @@ const todos = (state = [], action) => {
           isActive: false,
           tags: []
         }];
+
         case "EDIT_TODO": 
-        return 
+        return state.map(
+          todo => todo.id === action.id ? {...todo, text: action.payload} : todo
+        )
+
         case 'TOGGLE_CHECKED': 
             return state.map(
                 todo => 
                     todo.id === action.id ? { ...todo, isChecked: !todo.isChecked } : todo
-            )    
+            )   
+ 
         default: 
         return state
     }

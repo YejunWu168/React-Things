@@ -10,7 +10,6 @@ const TodoList = props => (
           key={todo.id}
           todo={todo}
           handleChecked={props.handleChecked}
-          handleSaveEdit={props.handleSaveEdit}
           onSpacebar={props.onSpacebar}
           getProgressTodos={props.getProgressTodos}
           handleAddTag={props.handleAddTag}
@@ -23,7 +22,6 @@ const TodoList = props => (
 TodoList.propTypes = {
   todos: array,
   handleChecked: func.isRequired,
-  handleSaveEdit: func.isRequired,
   handleAddTag: func.isRequired,
   onSpacebar: func.isRequired,
   getProgressTodos: func.isRequired,
