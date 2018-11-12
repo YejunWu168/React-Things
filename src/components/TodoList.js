@@ -5,7 +5,7 @@ import Todo from "./Todo";
 
 const TodoList = props => (
     <ul>
-      {props.todos.map(todo => (
+      {props.todos ? props.todos.map(todo => (
         <Todo
           key={todo.id}
           todo={todo}
@@ -16,17 +16,17 @@ const TodoList = props => (
           handleAddTag={props.handleAddTag}
           usedTags={props.usedTags}
         />
-      ))}
+      )) : null}
     </ul>
 );
 
 TodoList.propTypes = {
   todos: array,
-  handleChecked: func,
-  handleSaveEdit: func,
-  handleAddTag: func,
-  onSpacebar: func,
-  getProgressTodos: func,
+  handleChecked: func.isRequired,
+  handleSaveEdit: func.isRequired,
+  handleAddTag: func.isRequired,
+  onSpacebar: func.isRequired,
+  getProgressTodos: func.isRequired,
   usedTags: array
 }
 

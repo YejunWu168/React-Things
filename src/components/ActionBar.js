@@ -16,8 +16,8 @@ function ActionBar({handleAddTodo, buttonDisabled, handleRemoveSelected}) {
     return (
     <footer className="actionbar">
         {/* <Tooltip tooltipTitle={'New To-Do'} tooltipText={'You can also just press your spacebar.'} /> */}
+        <Tooltip title={'New To-Do'} text={'You can also just press your spacebar'}/>
         <button className="actionbar__btn" onClick={handleAddTodo}>+
-            <Tooltip title={'New To-Do'} text={'You can also just press your spacebar'}/>
         </button>
         <button className="actionbar__btn" 
         disabled={buttonDisabled} 

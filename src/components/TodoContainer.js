@@ -1,18 +1,18 @@
 import React, {Component} from "react";
-import {string} from 'prop-types';
+import { string, array } from 'prop-types';
+
+import { addTodo } from '../actions';
+import store from '../store';
+import { connect } from "react-redux";
 
 import Header from "./Header";
 import TodoList from "./TodoList";
 import ActionBar from './ActionBar';
-
-
-import uuid from "uuid";
  
 class TodoContainer extends Component {
   state = {
     todoInput: "",
-    todos: [],
-    savedTodos: [],
+    todos: this.props.todos,
     buttonDisabled: true,
     progress: 0,
     usedTags: [],
@@ -20,7 +20,8 @@ class TodoContainer extends Component {
   };
 
   static propTypes = {
-    title: string
+    title: string,
+    todos: array
   }
 
   componentDidMount() {
@@ -39,24 +40,10 @@ class TodoContainer extends Component {
     }
   }
 
-  handleAddTodo = e => {
-   
+  handleAddTodo = (e) => {
+    store.dispatch(addTodo());
 
-      this.setState({
-        todoInput: "",
-        todos: [
-          ...this.state.todos,
-          {
-            text: this.state.todoInput,
-            id: uuid(),
-            isChecked: false,
-            isActive: false,
-            tags: []
-          }
-        ]
-      });
-
-      document.removeEventListener("keydown", this.onSpacebar);
+    document.removeEventListener("keydown", this.onSpacebar);
   };
 
   // handleRemoveTodo = todoToRemove => {
@@ -94,15 +81,6 @@ class TodoContainer extends Component {
       todos: prevState.todos.filter(todo => todo.isChecked !== true),
       buttonDisabled: true
     }));
-  };
-
-  handleSaveEdit = (id, val) => {
-    const todos = this.state.todos;
-    const index = todos.findIndex(x => x.id === id);
-    todos[index].text = val;
-    this.setState({
-      todos
-    });
   };
 
   handleAddTag = (id, tag) => {
@@ -147,16 +125,6 @@ class TodoContainer extends Component {
   };
 
   handleClickFilterTag = selectedTag => {
-    // const todosState = this.state.todos;
-    // if (this.state.savedTodos.length === 0) {
-    //   this.setState({
-    //     savedTodos: todosState
-    //   });
-    // }
-
-    // const savedTodos = this.state.savedTodos;
-    // const todos = todosState.filter(todo => todo.tags.includes(selectedTag));
-
     this.setState({
       selectedTag
     });
@@ -201,7 +169,7 @@ class TodoContainer extends Component {
           <main>
             {this.renderFilterTags()}
             <TodoList
-              todos={this.state.todos}
+              todos={this.props.todos}
               handleChecked={this.handleChecked}
               handleSaveEdit={this.handleSaveEdit}
               onSpacebar={this.onSpacebar}
@@ -222,4 +190,13 @@ class TodoContainer extends Component {
   }
 } 
 
-export default TodoContainer;
+// map store state to props
+const mapStateToProps = state => {
+  return { todos: state };
+};
+
+const mapDispatchToProps = dispatch => ({
+  addTodo: text => dispatch(addTodo(text))
+});
+
+export default connect(mapStateToProps)(TodoContainer);

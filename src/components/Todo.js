@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {func, object, array} from 'prop-types'; 
+import store from '../store';
+import { editTodo } from '../actions';
+
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/fontawesome-free-solid";
@@ -31,20 +34,19 @@ class Todo extends Component {
   static propTypes = {
     todo: object,
     handleChecked: func,
-    handleSaveEdit: func,
     onSpacebar: func,
-    getProgressTodos: array,
+    getProgressTodos: func,
     handleAddTag: func,
     usedTags: array
   }
 
-  componentDidMount() {
-    this.props.getProgressTodos();
-  }
+  // componentDidMount() {
+  //   this.props.getProgressTodos();
+  // }
 
-  componentWillUnmount() {
-    this.props.getProgressTodos();
-  }
+  // componentWillUnmount() {
+  //   this.props.getProgressTodos();
+  // }
 
   getlistHeight = () => {
     const subtaskCount = this.state.subtasks.length;
@@ -80,7 +82,7 @@ class Todo extends Component {
 
   handleKeyDown = e => {
     if (e.key === "Enter") {
-      this.props.handleSaveEdit(this.props.todo.id, this.state.editText);
+      store.dispatch(editTodo(this.props.todo.id, this.state.editText))
       this.setState({
         editing: false,
         listHeight: 20
@@ -177,7 +179,6 @@ class Todo extends Component {
       isActive: this.state.editing,
       listHeight: 20
     });
-    this.props.handleSaveEdit(this.props.todo.id, this.state.editText);
     document.addEventListener("keydown", this.props.onSpacebar);
   };
 

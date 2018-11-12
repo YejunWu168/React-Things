@@ -28,6 +28,7 @@
         &:hover > .tooltip {
             opacity: 1;
             transform: scale(1);
+            animation-play-state: running;
         }
     }
 }
