@@ -4,11 +4,11 @@ import { string, func, array } from 'prop-types';
 import { addTodo } from '../actions';
 import { connect } from "react-redux";
 
-import Header from "./Header";
-import TodoList from "./TodoList";
-import ActionBar from './ActionBar';
+import Header from "../components/Header";
+import TodoList from "../components/TodoList";
+import ActionBar from '../components/ActionBar';
  
-class TodoContainer extends Component {
+class TodoListContainer extends Component {
   state = {
     todoInput: "",
     buttonDisabled: true,
@@ -52,24 +52,21 @@ class TodoContainer extends Component {
   // };
 
   handleChecked = id => {
-    const todos = this.state.todos;
-    const index = todos.findIndex(x => x.id === id);
-    todos[index].isChecked = !todos[index].isChecked;
 
-    this.setState({
-      todos
-    }, ()=> {
-      const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
-      if (isCheckedCount === 0) {
-        this.setState({
-          buttonDisabled: true
-        });
-      } else {
-        this.setState({
-          buttonDisabled: false
-        });
-      }
-    });
+    // this.setState({
+    //   todos
+    // }, ()=> {
+    //   const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
+    //   if (isCheckedCount === 0) {
+    //     this.setState({
+    //       buttonDisabled: true
+    //     });
+    //   } else {
+    //     this.setState({
+    //       buttonDisabled: false
+    //     });
+    //   }
+    // });
 
 
     this.getProgressTodos();
@@ -191,11 +188,11 @@ class TodoContainer extends Component {
 
 // map store state to props
 const mapStateToProps = state => {
-  return { todos: state };
+  return { todos: state.todos };
 };
 
 const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(addTodo(text))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListContainer);

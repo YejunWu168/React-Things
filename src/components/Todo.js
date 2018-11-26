@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {func, object, array} from 'prop-types'; 
-import store from '../store';
 import { editTodo, toggleChecked } from '../actions';
 import { connect } from "react-redux";
 

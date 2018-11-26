@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SidebarNav from '../components/SidebarNav';
-import Inbox from "../components/pages/Inbox";
-import Today from "../components/pages/Today";
-import Work from "../components/pages/Work";
-import Custom from "../components/pages/Custom";
+import Inbox from "../routes/Inbox";
+import Today from "../routes/Today";
+import Work from "../routes/Work";
+import Custom from "../routes/Custom";
 
 const AppRouter = () => (
   <BrowserRouter>
