@@ -23,10 +23,7 @@ const todos = (state = [], action) => {
     case TOGGLE_CHECKED:
     return state.map((todo) => {
       if (todo.id === action.payload) {
-       
-        return Object.assign({}, todo, {
-          isChecked: !todo.isChecked
-        })
+        return {...todo, isChecked: !todo.isChecked}
       }
 
       return todo
