@@ -1,4 +1,4 @@
-import {ADD_TODO, EDIT_TODO, TOGGLE_CHECKED, REMOVE_CHECKED } from './types';
+import { ADD_TODO, EDIT_TODO, TOGGLE_CHECKED, REMOVE_CHECKED } from './types';
 import uuid from 'uuid';
 
 export const addTodo = text => ({ type: ADD_TODO, id: uuid(), payload: text });

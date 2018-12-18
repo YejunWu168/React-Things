@@ -92,8 +92,8 @@ class TodoListContainer extends Component {
   };
 
   getProgressTodos = () => {
-    const todos = this.todos;
-    const todosCount = todos.length;
+    const todos = this.props.todos;
+    const todosCount = this.props.todos.length;
     const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
 
     const progress = (100 / todosCount) * isCheckedCount;
@@ -102,7 +102,7 @@ class TodoListContainer extends Component {
       progress: (prevState.progress = progress)
     }));
   };
-
+ 
   handleClickFilterTag = selectedTag => {
     this.setState({
       selectedTag

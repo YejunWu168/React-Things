@@ -1,12 +1,12 @@
 import React from "react";
 import { array, func} from 'prop-types';
 
-import Todo from "./Todo/Todo";
+import TodoContainer from "../containers/TodoContainer";
 
 const TodoList = props => (
     <ul>
       {props.todos ? props.todos.map(todo => (
-        <Todo
+        <TodoContainer
           key={todo.id}
           todo={todo}
           handleChecked={props.handleChecked}
