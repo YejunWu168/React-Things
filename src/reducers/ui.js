@@ -1,6 +1,6 @@
-import {TOGGLE_DELETE_TODO_BUTTON} from '../actions/types';
+import { TOGGLE_DELETE_TODO_BUTTON } from '../actions/types';
 
-const ui = (state = { toggleDeleteTodoButton : false}, action) => {
+const ui = (state = {}, action) => {
     switch (action.type) {
 
         case TOGGLE_DELETE_TODO_BUTTON:
@@ -9,4 +9,6 @@ const ui = (state = { toggleDeleteTodoButton : false}, action) => {
         default: 
         return state;
     }
-};
+}
+
+export default ui;

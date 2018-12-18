@@ -1,12 +1,14 @@
-import React, {Component} from "react";
-import TodoList from "../components/TodoList";
+import React, { Component } from 'react';
+import Header from '../components/Header';
+import TodoListContainer from './TodoListContainer';
+import ActionBar from '../components/ActionBar';
 
 import { addTodo } from '../actions';
 import { connect } from "react-redux";
 
 import { string, func, array } from 'prop-types';
 
-class TodoListContainer extends Component {
+class DashboardContainer extends Component {
   state = {
     todoInput: "",
     buttonDisabled: true,
@@ -21,12 +23,27 @@ class TodoListContainer extends Component {
     todos: array
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.onSpacebar);
+  }
+
   handleChange = e => {
     this.setState({
       todoInput: e.target.value
     });
   };
 
+  onSpacebar = e => {
+    if (e.keyCode === 32) {
+      this.handleAddTodo();
+    }
+  }
+
+  handleAddTodo = (e) => {
+    this.props.addTodo();
+
+    document.removeEventListener("keydown", this.onSpacebar);
+  };
 
   // handleRemoveTodo = todoToRemove => {
   //   this.setState(prevState => ({
@@ -63,7 +80,7 @@ class TodoListContainer extends Component {
   };
 
   handleAddTag = (id, tag) => {
-    const todosState = this.props.todos;
+    const todosState = this.state.todos;
 
     const index = todosState.findIndex(x => x.id === id);
     const todoTags = todosState[index].tags;
@@ -72,7 +89,7 @@ class TodoListContainer extends Component {
     const filteredTodoTags = todoTags.filter((elem, index, arr) => index === arr.indexOf(elem));
 
     todoTags.splice(0, todoTags.length, ...filteredTodoTags);
-    const todos = this.props.todos;
+    const todos = this.state.todos;
 
     const usedTags = todos
       .map(todo => todo.tags)
@@ -92,7 +109,7 @@ class TodoListContainer extends Component {
   };
 
   getProgressTodos = () => {
-    const todos = this.todos;
+    const todos = this.state.todos;
     const todosCount = todos.length;
     const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
 
@@ -140,31 +157,28 @@ class TodoListContainer extends Component {
       );
     }
   };
-  
-  render () {
+
+  render() {
     return (
-      <TodoList
-        todos={this.props.todos}
-        handleChecked={this.handleChecked}
-        handleSaveEdit={this.handleSaveEdit}
-        getProgressTodos={this.getProgressTodos}
-        changeBackground={this.changeBackground}
-        handleAddTag={this.handleAddTag}
-        usedTags={this.state.usedTags}
-        selectedTag={this.state.selectedTag}
-        onSpacebar={this.props.onSpacebar}
-      />   
+        <main className="wrapper">
+          <Header progress={this.state.progress} title={this.props.title} progressColor={this.progressColor} />
+          <section>
+            {this.renderFilterTags()}
+            <TodoListContainer onSpacebar={this.onSpacebar}/>
+          </section>
+          <ActionBar 
+            handleAddTodo={this.handleAddTodo}
+            buttonDisabled={this.state.buttonDisabled}
+            handleRemoveSelected={this.handleRemoveSelected}
+          />
+        </main>
     );
   }
-} 
-
-// map store state to props
-const mapStateToProps = state => {
-  return { todos: state.todos };
-};
+}
 
 const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(addTodo(text))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoListContainer);
+
+export default connect(null, mapDispatchToProps)(DashboardContainer);

@@ -1,18 +1,13 @@
 import React, {Component} from "react";
 import {func, object, array} from 'prop-types'; 
-import { editTodo, toggleChecked } from '../actions';
+import { editTodo, toggleChecked } from '../../actions';
 import { connect } from "react-redux";
 
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import { faListUl } from "@fortawesome/fontawesome-free-solid";
 import { Line } from "rc-progress";
 import uuid from "uuid";
 
-import Subtask from "./Subtask";
-import TagField from "./TagField";
-import SecondaryTagField from "./SecondaryTagField";
+import EditTodo from './EditTodo';
 import onClickOutside from "react-onclickoutside";
-
 
 class Todo extends Component {
   state = {
@@ -66,6 +61,9 @@ class Todo extends Component {
       listHeight: this.getlistHeight(),
       tagList
     });
+
+    document.removeEventListener('keydown', this.props.onSpacebar);
+
   };
 
   handleEditChange = e => {
@@ -179,6 +177,8 @@ class Todo extends Component {
       isActive: this.state.editing,
       listHeight: 20
     });
+
+    this.props.editTodo(this.props.todo.id, this.state.editText);
     document.addEventListener("keydown", this.props.onSpacebar);
   };
 
@@ -205,109 +205,6 @@ class Todo extends Component {
     }, 300);
   };
 
-  // Render methods
-  renderLabel = () => {
-    if (this.state.editing) {
-      return (
-        <input
-          autoFocus
-          className="edit-field"
-          defaultValue={this.state.editText}
-          placeholder="New Todo"
-          type="text"
-          onChange={e => {
-            this.handleEditChange(e);
-          }}
-          onKeyDown={this.handleKeyDown}
-        />
-      );
-    } else {
-      return (
-        <div>
-          <label className={`todo-label ${this.props.todo.isChecked ? "completed" : ""}`}>
-            {
-              this.props.todo.text.trim() ? (
-              this.props.todo.text
-            ) : (
-              <span className="placeholder" style={{ color: "grey" }}>
-                New To - Do
-              </span>
-            )}
-          </label>
-          <div className="tags">
-            {this.props.todo.tags.map(tag => (
-              <span key={uuid()} className="tag">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      );
-    }
-  };
-
-  renderTags = () => {
-    if (this.state.hasTags && this.state.editing) {
-      return (
-        <div className="expanded-tags">
-          {this.props.todo.tags.map(tag => (
-            <span key={uuid()} className="expanded-tag">
-              {tag}
-            </span>
-          ))}
-          <SecondaryTagField
-            handleAddTag={this.props.handleAddTag}
-            todoId={this.props.todo.id}
-            handleAddTags={this.handleAddTags}
-            tagList={this.state.tagList}
-            handleAddToTagList={this.handleAddToTagList}
-          />
-        </div>
-      );
-    }
-  };
-
-  renderTodo = () => {
-    return (
-      <div
-        className="edit-todo"
-        onClick={e => {
-          this.handleClickTodo(e);
-        }}
-      >
-        {this.renderLabel()}
-        <ul className="subtasks" style={{ display: this.state.editing ? "block" : "none" }}>
-          {this.state.subtasks.map(subtask => (
-            <Subtask
-              key={subtask.id}
-              subtask={subtask}
-              handleSubtaskChecked={this.handleSubtaskChecked}
-              handleKeyDownSubtaskField={this.handleKeyDownSubtaskField}
-              handleSubtaskChange={this.handleSubtaskChange}
-            />
-          ))}
-        </ul>
-        {this.renderTags()}
-        {this.state.subtaskList === false &&
-          this.state.editing === true && (
-            <button className="subtask-btn" onClick={this.handleAddSubtaskList}>
-              <FontAwesomeIcon icon={faListUl} fixedWidth />
-            </button>
-          )}
-        {this.state.hasTags === false &&
-          this.state.editing && (
-            <TagField
-              handleAddTag={this.props.handleAddTag}
-              todoId={this.props.todo.id}
-              handleAddTags={this.handleAddTags}
-              tagList={this.state.tagList}
-              handleAddToTagList={this.handleAddToTagList}
-            />
-          )}
-      </div>
-    );
-  };
-
   render() {
     return (
       <li
@@ -328,7 +225,28 @@ class Todo extends Component {
             }
           }}
         />
-        {this.renderTodo()}
+        <EditTodo
+          handleClickTodo={ this.handleClickTodo }
+          subtaskList= { this.state.subtaskList }
+          hasTags={ this.state.hasTags }
+          editing={ this.state.editing } 
+          editText={ this.state.editText } 
+          handleEditChange={this.handleEditChange} 
+          todo={this.props.todo}
+          handleKeyDown={ this.handleKeyDown }
+          subtasks={this.state.subtasks}
+          handleAddSubtaskList={this.handleAddSubtaskList}
+          handleSubtaskChecked={this.handleSubtaskChecked}
+          handleKeyDownSubtaskField={this.handleKeyDownSubtaskField}
+          handleSubtaskChange={this.handleSubtaskChange}
+          tags={this.props.todo.tags} 
+          handleAddTag={this.props.handleAddTag}
+          todoId={this.props.todo.id}
+          handleAddTags={this.handleAddTags}
+          tagList={this.state.tagList}
+          handleAddToTagList={this.handleAddToTagList}
+        />
+
         {this.state.subtasks.length > 0 && (
           <div className="rc-line-container">
             <Line percent={this.state.progress} strokeColor={this.progressColor()} strokeWidth="10" trailWidth="10" />

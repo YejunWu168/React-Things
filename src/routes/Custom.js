@@ -1,6 +1,6 @@
 import React from "react";
-import TodoListContainer from "../containers/TodoListContainer";
+import DashboardContainer from "../containers/DashboardContainer";
 
-const Custom = () => <TodoListContainer />;
+const Custom = () => <DashboardContainer />;
 
 export default Custom;

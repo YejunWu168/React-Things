@@ -1,6 +1,6 @@
 import React from "react";
-import TodoListContainer from "../containers/TodoListContainer";
+import DashboardContainer from "../containers/DashboardContainer";
 
-const Inbox = () => <TodoListContainer title="Inbox" />;
+const Inbox = () => <DashboardContainer title="Inbox" />;
 
 export default Inbox;

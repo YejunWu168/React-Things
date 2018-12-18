@@ -1,6 +1,6 @@
 import React from "react";
-import TodoListContainer from "../containers/TodoListContainer";
+import DashboardContainer from "../containers/DashboardContainer";
 
-const Today = () => <TodoListContainer title="Today" />;
+const Today = () => <DashboardContainer title="Today" />;
 
 export default Today;

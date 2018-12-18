@@ -1,7 +1,6 @@
 import React from "react";
 
-class FilterTags extends React.Component {
-  state = {};
+class FilterTagList extends React.Component {
   render() {
     if (this.state.usedTags.length > 0) {
       return (
@@ -24,3 +23,5 @@ class FilterTags extends React.Component {
     }
   }
 }
+
+export default FilterTagList;
