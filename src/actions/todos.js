@@ -1,7 +1,9 @@
-import { ADD_TODO, EDIT_TODO, TOGGLE_CHECKED, REMOVE_CHECKED } from './types';
+import { ADD_TODO, SAVE_TODO, TOGGLE_CHECKED, REMOVE_CHECKED, SET_TODO_ACTIVE, SET_ALL_TODOS_INACTIVE } from './types';
 import uuid from 'uuid';
 
 export const addTodo = text => ({ type: ADD_TODO, id: uuid(), payload: text });
-export const editTodo = (id, text) => ({ type: EDIT_TODO, id, payload: text});
-export const toggleChecked = id => ({ type: TOGGLE_CHECKED, payload: id});
-export const removeChecked = id => ({type: REMOVE_CHECKED, payload: id});
+export const saveTodo = (id, text) => ({ type: SAVE_TODO, id, payload: text});
+export const toggleChecked = id => ({ type: TOGGLE_CHECKED, payload: id });
+export const removeChecked = id => ({ type: REMOVE_CHECKED, payload: id });
+export const setTodoActive = id => ({ type: SET_TODO_ACTIVE, payload: id });
+export const setAllTodosInactve = () => ({ type: SET_ALL_TODOS_INACTIVE });

@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {func, object, array} from 'prop-types'; 
-import { editTodo, toggleChecked } from '../actions';
+import { saveTodo, toggleChecked, setTodoActive } from '../actions';
 import { connect } from "react-redux";
-
 import uuid from "uuid";
 
 import Todo from '../components/Todo/Todo';
@@ -11,14 +10,13 @@ import onClickOutside from "react-onclickoutside";
 class TodoContainer extends Component {
   state = {
     editing: true,
-    editText: this.props.todo.text,
+    // editText: this.props.todo.text,
     subtaskInput: "",
     subtasks: [],
     subtaskList: false,
     hasTags: false,
     tagInput: false,
     progress: 0,
-    isActive: false,
     listHeight: 20,
     highlightClass: false,
     tagList: [...new Set(["Home", "Errand", "Important", "Office", ...this.props.usedTags])]
@@ -26,7 +24,7 @@ class TodoContainer extends Component {
 
   static propTypes = {
     todo: object,
-    editTodo: func,
+    saveTodo: func,
     toggleChecked: func,
     onSpacebar: func,
     getProgressTodos: func,
@@ -36,8 +34,8 @@ class TodoContainer extends Component {
 
 
   componentDidMount() {
-    console.log(this.state.subtasks);
     this.props.getProgressTodos();
+    console.log(this.props.id);
   }
 
   // componentWillUnmount() {
@@ -64,7 +62,6 @@ class TodoContainer extends Component {
     });
 
     document.removeEventListener('keydown', this.props.onSpacebar);
-
   };
 
   handleEditChange = e => {
@@ -74,16 +71,15 @@ class TodoContainer extends Component {
   };
 
   handleClickTodo = () => {
-    this.setState({
-      isActive: true
-    });
+    this.props.setTodoActive(this.props.todo.id);
   };
 
   handleKeyDown = e => {
     if (e.key === "Enter") {
-      this.props.editTodo(this.props.todo.id, this.state.editText);
+      this.props.saveTodo(this.props.todo.id, this.state.editText);
       this.setState({
         editing: false,
+        isActive: true,
         listHeight: 20
       });
 
@@ -176,11 +172,11 @@ class TodoContainer extends Component {
     if (!this.state.editing) { return; }
     this.setState({
       editing: false,
-      isActive: this.state.editing,
+      isActive: false,
       listHeight: 20
     });
-
-    this.props.editTodo(this.props.todo.id, this.state.editText);
+    console.log('clicked!')
+    this.props.saveTodo(this.props.todo.id, this.state.editText);
     document.addEventListener("keydown", this.props.onSpacebar);
   };
 
@@ -195,54 +191,60 @@ class TodoContainer extends Component {
     });
   };
 
-  handleHighlightClass = () => {
-    this.setState({
-      highlightClass: true
-    });
-
-    setTimeout(() => {
-      this.setState(prevState => ({
-        highlightClass: !prevState.highlightClass
-      }));
-    }, 300);
-  };
 
   render() {
+    const {
+      todo,
+      handleAddTag,
+      handleAddToTagList,
+      toggleChecked
+    } = this.props
+
+    const {
+      highlightClass,
+      subtaskList,
+      subtasks,
+      hasTags,
+      editing,
+      editText,
+      tagList,
+      progress
+    } = this.state
+
     return (
       <Todo 
-        isActive={this.state.isActive}
-        highlightClass={this.state.highlightClass}
+        todo={ todo }
+        highlightClass={highlightClass}
         handleClickTodo={ this.handleClickTodo }
-        subtaskList= { this.state.subtaskList }
-        subtasks={this.state.subtasks}
-        hasTags={ this.state.hasTags }
-        editing={ this.state.editing } 
-        editText={ this.state.editText } 
+        subtaskList= { subtaskList }
+        subtasks={subtasks}
+        hasTags={ hasTags } 
+        editing={ editing } 
+        editText={ editText } 
         handleEditChange={this.handleEditChange} 
-        todo={this.props.todo}
         handleKeyDown={ this.handleKeyDown }
         handleDoubleClick={this.handleDoubleClick}
-        toggleChecked={this.props.toggleChecked}
+        toggleChecked={toggleChecked}
         handleHighlightClass={this.handleHighlightClass}
         handleAddSubtaskList={this.handleAddSubtaskList}
         handleSubtaskChecked={this.handleSubtaskChecked}
         handleKeyDownSubtaskField={this.handleKeyDownSubtaskField}
         handleSubtaskChange={this.handleSubtaskChange}
-        tags={this.props.todo.tags} 
-        handleAddTag={this.props.handleAddTag}
-        todoId={this.props.todo.id}
+        handleAddTag={handleAddTag}
         handleAddTags={this.handleAddTags}
-        tagList={this.state.tagList}
+        tagList={tagList}
         handleAddToTagList={this.handleAddToTagList}
-        progress={this.state.progress}
+        progress={progress}
         progressColor={this.progressColor}
       />
     );
   }
 }
 
+
 const mapDispatchToProps = dispatch => ({
-  editTodo: (id, text) => dispatch(editTodo(id,text)),
+  saveTodo: (id, text) => dispatch(saveTodo(id,text)),
+  setTodoActive: id => dispatch(setTodoActive(id)),
   toggleChecked: id => dispatch(toggleChecked(id))
 });
 

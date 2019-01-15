@@ -1,4 +1,4 @@
-import { ADD_TODO, EDIT_TODO, TOGGLE_CHECKED } from '../actions/types';
+import { ADD_TODO, SAVE_TODO, TOGGLE_CHECKED, SET_TODO_ACTIVE, SET_ALL_TODOS_INACTIVE } from '../actions/types';
 
 const todos = (state = [], action) => {
   switch (action.type) {
@@ -15,7 +15,7 @@ const todos = (state = [], action) => {
           }
         ];
 
-    case EDIT_TODO: 
+    case SAVE_TODO: 
     return state.map(
       todo => todo.id === action.id ? {...todo, text: action.payload} : todo
     )
@@ -29,10 +29,23 @@ const todos = (state = [], action) => {
       return todo
     })
 
+    case SET_TODO_ACTIVE: 
+    return state.map((todo) => {
+      if (todo.id === action.payload) {
+        return {...todo, isActive: true}
+      } else {
+        return {...todo, isActive: false}
+      }
+
+      return todo
+    })
+
+    case SET_ALL_TODOS_INACTIVE:
+    return state.map((todo) => ({...todo, isActive: false }))
+
     default:
       return state;
   }
 };
-
 
 export default todos

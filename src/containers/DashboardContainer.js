@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import TodoListContainer from './TodoListContainer';
 import ActionBar from '../components/ActionBar';
 
-import { addTodo } from '../actions';
+import { addTodo, setAllTodosInactve } from '../actions';
 import { connect } from "react-redux";
 
 import { string, func, array } from 'prop-types';
@@ -39,37 +39,15 @@ class DashboardContainer extends Component {
     }
   }
 
+  removeActiveStatesTodo = e => {
+    if (e.target !== e.currentTarget) return;
+		this.props.setAllTodosInactve();
+  }
+
   handleAddTodo = (e) => {
     this.props.addTodo();
 
     document.removeEventListener("keydown", this.onSpacebar);
-  };
-
-  // handleRemoveTodo = todoToRemove => {
-  //   this.setState(prevState => ({
-  //     todos: prevState.todos.filter(todo => todo.id !== todoToRemove)
-  //   }));
-  // };
-
-  handleChecked = id => {
-
-    // this.setState({
-    //   todos
-    // }, ()=> {
-    //   const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
-    //   if (isCheckedCount === 0) {
-    //     this.setState({
-    //       buttonDisabled: true
-    //     });
-    //   } else {
-    //     this.setState({
-    //       buttonDisabled: false
-    //     });
-    //   }
-    // });
-
-
-    this.getProgressTodos();
   };
 
   handleRemoveSelected = () => {
@@ -160,7 +138,7 @@ class DashboardContainer extends Component {
 
   render() {
     return (
-        <main className="wrapper">
+        <main className="wrapper" onClick={this.removeActiveStatesTodo}>
           <Header progress={this.state.progress} title={this.props.title} progressColor={this.progressColor} />
           <section>
             {this.renderFilterTags()}
@@ -177,7 +155,8 @@ class DashboardContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch(addTodo(text))
+  addTodo: text => dispatch(addTodo(text)),
+  setAllTodosInactve: () => dispatch(setAllTodosInactve())
 });
 
 

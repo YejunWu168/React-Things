@@ -6,8 +6,8 @@ import EditTodo from './EditTodo';
 
 export const Todo = props => (
   <li
-    className={`todo ${props.isActive ? "highlight" : ""} ${props.editing ? "expanded-todo" : ""} ${
-      props.highlightClass ? "checkbox-clicked" : ""
+    className={`todo ${props.todo.isActive ? "highlight" : ""} ${props.editing ? "expanded-todo" : ""} ${
+      props.todo.isChecked ? "checkbox-clicked" : ""
     }`}
     // ref={element => (this.liRef = element)}
     style={{ minHeight: props.listHeight + "px" }}
@@ -19,17 +19,18 @@ export const Todo = props => (
       onClick={() => {
         props.toggleChecked(props.todo.id);
         if (!props.editing && !props.isActive) {
-          props.handleHighlightClass();
+          // props.handleHighlightClass();
         }
       }}
     />
+    
     <EditTodo
       handleClickTodo={ props.handleClickTodo }
       subtaskList= { props.subtaskList }
       hasTags={ props.hasTags }
       editing={ props.editing } 
       editText={ props.editText } 
-      handleEditChange={props.handleEditChange} 
+      handleEditChange={props.handleEditChange}
       todo={props.todo}
       handleKeyDown={ props.handleKeyDown }
       subtasks={props.subtasks}

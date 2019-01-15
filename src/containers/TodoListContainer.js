@@ -159,9 +159,7 @@ class TodoListContainer extends Component {
 } 
 
 // map store state to props
-const mapStateToProps = state => {
-  return { todos: state.todos };
-};
+const mapStateToProps = state => ({ todos: state.todos });
 
 const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(addTodo(text))
