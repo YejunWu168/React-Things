@@ -1,21 +1,13 @@
-import uuid from 'uuid';
+import uuid from 'uuid'
+import { ADD_SUBTASK } from '../actions/types'
 
 const subtasks = (state = [], action) => {
     switch (action.type) {
-        case 'ADD_SUBTASKLIST': 
-        return [
-          ...state.subtasks,
-          {
-            text: "",
-            id: uuid(),
-            isChecked: false
-          }
-        ]
-        case 'ADD_SUBTASK':
+        case ADD_SUBTASK:
             return [
               ...state.subtasks,
               {
-                text: state.todoInput,
+                value: '',
                 id: uuid(),
                 isChecked: false,
               }

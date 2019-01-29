@@ -7,17 +7,21 @@ const todos = (state = [], action) => {
         return [
           ...state,
           {
-            text: '',
+            value: '',
+            progress: 0,
+            editing: true,
             id: action.id,
             isChecked: false,
             isActive: false,
-            tags: []
+            tags: [],
+            subtasks: [],
+            tagList: [...new Set(["Home", "Errand", "Important", "Office"])]
           }
         ];
 
     case SAVE_TODO: 
     return state.map(
-      todo => todo.id === action.id ? {...todo, text: action.payload} : todo
+      todo => todo.id === action.id ? {...todo, value: action.payload} : todo
     )
 
     case TOGGLE_CHECKED:
@@ -36,8 +40,6 @@ const todos = (state = [], action) => {
       } else {
         return {...todo, isActive: false}
       }
-
-      return todo
     })
 
     case SET_ALL_TODOS_INACTIVE:

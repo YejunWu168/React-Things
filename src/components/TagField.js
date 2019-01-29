@@ -73,7 +73,7 @@ class TagField extends React.Component {
       <div className="add-tag" style={{ background: this.state.tagInput ? "#f0f1f2" : "none" }}>
         <input
           type="text"
-          className="add-tag__input"
+          className="todo-btn__input"
           onChange={this.handleChangeTagField}
           onKeyDown={this.handleKeyDownTagField}
           onClick={this.handleClickInput}
@@ -87,8 +87,8 @@ class TagField extends React.Component {
             this.textInput = input;
           }}
         />
-        <button className="subtask-btn" onClick={this.handleAddTags}>
-          <FontAwesomeIcon className="subtask-btn" icon={faTag} fixedWidth />
+        <button className="todo-btn" onClick={this.handleAddTags}>
+          <FontAwesomeIcon className="todo-btn" icon={faTag} fixedWidth />
         </button>
 
         {this.state.tagInput && (

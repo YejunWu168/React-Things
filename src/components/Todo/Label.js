@@ -1,48 +1,37 @@
-import React, { Component } from 'react';
-
+import React, { Fragment } from 'react';
 import uuid from 'uuid';
 
-class Label extends Component {
+const Label = ({handleChange, value, editing, tags, onEnter}) => (
+    editing ?
+        <input
+        autoFocus
+        className="edit-field"
+        defaultValue={value.trim() !== '' ? value : null}
+        placeholder="New To-Do"
+        type="text"
+        onChange={handleChange}
+        onKeyDown={onEnter}
+        />
+    :
+        <Fragment>
+            <label className='todo-label'>
+                {
+                value.trim() !== '' ? value
+                 : (
+                <span className="placeholder" style={{ color: "grey" }}>
+                    New To-Do
+                </span>
+                )}
+            </label>
+            <div className="tags">
+                {tags.map(tag => (
+                <span key={uuid()} className="tag">
+                    {tag}
+                </span>
+                ))}
+            </div>
+        </Fragment>
+)
 
-    render() {
-        if (this.props.editing) {
-            return (
-                <input
-                autoFocus
-                className="edit-field"
-                defaultValue={this.props.editText}
-                placeholder="New Todo"
-                type="text"
-                onChange={e => {
-                    this.props.handleEditChange(e);
-                }}
-                onKeyDown={this.props.handleKeyDown}
-                />
-            );
-            } else {
-            return (
-                <React.Fragment>
-                    <label className={`todo-label ${this.props.todo.isChecked ? "completed" : ""}`}>
-                        {
-                        this.props.todo.text.trim() ? (
-                        this.props.todo.text
-                        ) : (
-                        <span className="placeholder" style={{ color: "grey" }}>
-                            New To - Do
-                        </span>
-                        )}
-                    </label>
-                    <div className="tags">
-                        {this.props.todo.tags.map(tag => (
-                        <span key={uuid()} className="tag">
-                            {tag}
-                        </span>
-                        ))}
-                    </div>
-                </React.Fragment>
-            );
-        }
-    }
-}
 
 export default Label;

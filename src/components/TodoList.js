@@ -1,5 +1,5 @@
 import React from "react";
-import { array, func} from 'prop-types';
+import { array, func } from 'prop-types';
 
 import TodoContainer from "../containers/TodoContainer";
 

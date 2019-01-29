@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import { addTodo, setAllTodosInactive } from '../actions';
+import { connect } from "react-redux";
+import { string, func, array } from 'prop-types';
+import { constants } from '../utils/constants';
+
 import Header from '../components/Header';
 import TodoListContainer from './TodoListContainer';
 import ActionBar from '../components/ActionBar';
 
-import { addTodo, setAllTodosInactve } from '../actions';
-import { connect } from "react-redux";
-
-import { string, func, array } from 'prop-types';
 
 class DashboardContainer extends Component {
   state = {
-    todoInput: "",
     buttonDisabled: true,
     progress: 0,
     usedTags: [],
@@ -27,21 +27,16 @@ class DashboardContainer extends Component {
     document.addEventListener("keydown", this.onSpacebar);
   }
 
-  handleChange = e => {
-    this.setState({
-      todoInput: e.target.value
-    });
-  };
-
   onSpacebar = e => {
-    if (e.keyCode === 32) {
+    if (e.keyCode === constants.SPACE_KEY) {
+      e.preventDefault();
       this.handleAddTodo();
     }
   }
 
   removeActiveStatesTodo = e => {
     if (e.target !== e.currentTarget) return;
-		this.props.setAllTodosInactve();
+		this.props.setAllTodosInactive();
   }
 
   handleAddTodo = (e) => {
@@ -156,7 +151,7 @@ class DashboardContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(addTodo(text)),
-  setAllTodosInactve: () => dispatch(setAllTodosInactve())
+  setAllTodosInactive: () => dispatch(setAllTodosInactive())
 });
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
+import uuid from 'uuid';
 
 import SecondaryTagField from '../SecondaryTagField';
 
-import uuid from 'uuid';
 
 const ExpandedTags = props => (
     <div className="expanded-tags">
