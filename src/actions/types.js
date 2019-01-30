@@ -6,8 +6,11 @@ export const REMOVE_CHECKED = 'REMOVE_CHECKED'
 export const SET_TODO_ACTIVE = 'SET_TODO_ACTIVE'
 export const SET_ALL_TODOS_INACTIVE ='SET_ALL_TODOS_INACTIVE'
 
-//Subtasks Actions 
+// Subtasks Actions 
 export const ADD_SUBTASK = 'ADD_SUBTASK'
+
+// Tags Actions
+export const ADD_TAG = 'ADD_TAG'
 
 // UI Actions
 export const TOGGLE_DELETE_TODO_BUTTON = 'TOGGLE_DELETE_TODO_BUTTON'

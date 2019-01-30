@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setTodoActive, saveTodo, addSubtask } from '../actions'
+import { setTodoActive, saveTodo, addSubtask, addTag } from '../actions'
 import Todo from '../components/Todo/Todo'
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ 
@@ -12,7 +12,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     document.addEventListener("keydown", ownProps.onSpacebar)
   },
 
-  addSubtask: text => dispatch(addSubtask(text))
+  addSubtask: text => dispatch(addSubtask(text)),
+
+  addTag: text => dispatch(addTag(text))
 })
 
 export default connect(null, mapDispatchToProps)(Todo);

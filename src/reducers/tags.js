@@ -1,15 +1,13 @@
-import uuid from 'uuid'
-import { ADD_SUBTASK } from '../actions/types'
+import { ADD_TAG } from '../actions/types'
 
 const subtasks = (state = [], action) => {
     switch (action.type) {
-        case ADD_SUBTASK:
+        case ADD_TAG:
             return [
               ...state,
               {
                 value: '',
-                id: uuid(),
-                isChecked: false,
+
               }
             ]
         default: 

@@ -14,8 +14,7 @@ const todos = (state = [], action) => {
             isChecked: false,
             isActive: false,
             tags: [],
-            subtasks: [],
-            tagList: [...new Set(["Home", "Errand", "Important", "Office"])]
+            subtasks: []
           }
         ];
 

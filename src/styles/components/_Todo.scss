@@ -127,13 +127,21 @@
   margin-right: 0.5rem;
 }
 
-.add-tag {
+.field-btn {
   height: 25px;
   display: inline-block;
   float: right;
   border-radius: 0.4rem;
   margin-top: 0.1rem;
   transition: all 0.2s ease;
+
+  &__expanded {
+    background : #f0f1f2;
+
+    .todo-btn:hover {
+      border-color: transparent;
+    }
+  }
 }
 
 .todo-btn__input {

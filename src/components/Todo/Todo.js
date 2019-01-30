@@ -3,12 +3,14 @@ import { Line } from "rc-progress"
 import {func, object, array} from 'prop-types' 
 import onClickOutside from "react-onclickoutside"
 import { constants } from '../../utils/constants'
+import { faTag, faListUl } from '@fortawesome/fontawesome-free-solid'
 
 import EditTodo from './EditTodo'
 import Label from './Label'
 import SubtaskList from './SubtaskList'
 import ExpandedTags from './ExpandedTags'
-import TodoButtons from './TodoButtons'
+import InputButtons from '../InputButtons/InputButtons'
+import InputButton from '../InputButtons/InputButton'
 
 class Todo extends Component {
 
@@ -78,7 +80,8 @@ class Todo extends Component {
   render() {
     const {
       todo,
-      addSubtask
+      addSubtask,
+      addTag
     } = this.props;
 
     const {
@@ -124,7 +127,11 @@ class Todo extends Component {
               tagList={this.tagList}
             />
           }
-          <TodoButtons tags={todo.tags} subtasks={todo.subtasks} addSubtask={addSubtask} />
+          <InputButtons>
+            <InputButton buttonType={todo.subtasks} icon={faListUl} onClick={addSubtask} />
+            <InputButton buttonType={todo.tags} icon={faTag} onClick={addTag}>
+            </InputButton>  
+          </InputButtons>
         </EditTodo>
       }
         {todo.subtasks.length > 0 && 
