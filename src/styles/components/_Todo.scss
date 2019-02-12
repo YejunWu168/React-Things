@@ -11,6 +11,7 @@
 .todo-label {
   display: inline-block;
   margin-top: 0.1rem;
+  line-height: 1;
 }
 
 .toggle {
@@ -45,7 +46,6 @@
 }
 
 .edit-todo {
-  margin-left: 1rem;
   margin-top: -0.1rem;
   width: 100%;
   position: relative;

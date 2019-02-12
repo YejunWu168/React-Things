@@ -27,6 +27,10 @@ class DashboardContainer extends Component {
     document.addEventListener("keydown", this.onSpacebar);
   }
 
+  componentWillUnMount() {
+    document.removeEventListener("keydown", this.onSpacebar); 
+  }
+
   onSpacebar = e => {
     if (e.keyCode === constants.SPACE_KEY) {
       e.preventDefault();

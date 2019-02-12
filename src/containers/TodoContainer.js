@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setTodoActive, saveTodo, addSubtask, addTag } from '../actions'
+import { setTodoActive, saveTodo, addSubtask, addTag, saveSubtask, saveTag } from '../actions'
 import Todo from '../components/Todo/Todo'
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ 
@@ -8,13 +8,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
   updateTodo: text => {
     dispatch(saveTodo(ownProps.todo.id, text)) 
-
     document.addEventListener("keydown", ownProps.onSpacebar)
   },
 
-  addSubtask: text => dispatch(addSubtask(text)),
+  addSubtask: string => dispatch(addSubtask(ownProps.todo.id, string)),
+  addTag: string => dispatch(addTag(ownProps.todo.id, string)),
 
-  addTag: text => dispatch(addTag(text))
+  saveSubtask: string => dispatch(saveSubtask(string)),
+  saveTag: string => dispatch(saveTag(string))
 })
 
 export default connect(null, mapDispatchToProps)(Todo);

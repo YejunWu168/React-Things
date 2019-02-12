@@ -1,9 +1,9 @@
-import { ADD_TODO, SAVE_TODO, TOGGLE_CHECKED, SET_TODO_ACTIVE, SET_ALL_TODOS_INACTIVE } from '../actions/types';
+import * as types from '../actions/types';
 
 const todos = (state = [], action) => {
   switch (action.type) {
     
-    case ADD_TODO:
+    case types.ADD_TODO:
         return [
           ...state,
           {
@@ -18,12 +18,12 @@ const todos = (state = [], action) => {
           }
         ];
 
-    case SAVE_TODO: 
+    case types.SAVE_TODO: 
     return state.map(
       todo => todo.id === action.id ? {...todo, value: action.payload} : todo
     )
 
-    case TOGGLE_CHECKED:
+    case types.TOGGLE_CHECKED:
     return state.map((todo) => {
       if (todo.id === action.payload) {
         return {...todo, isChecked: !todo.isChecked}
@@ -32,7 +32,7 @@ const todos = (state = [], action) => {
       return todo
     })
 
-    case SET_TODO_ACTIVE: 
+    case types.SET_TODO_ACTIVE: 
     return state.map((todo) => {
       if (todo.id === action.payload) {
         return {...todo, isActive: true}
@@ -41,8 +41,19 @@ const todos = (state = [], action) => {
       }
     })
 
-    case SET_ALL_TODOS_INACTIVE:
+    case types.SET_ALL_TODOS_INACTIVE:
     return state.map((todo) => ({...todo, isActive: false }))
+
+    // Subtasks
+    case types.ADD_SUBTASK:
+    return state.map(
+        todo => todo.id === action.todoId ? {...todo, subtasks: [...todo.subtasks, {
+          value: action.payload, 
+          id: action.id, 
+          isChecked: false}
+        ]} : todo
+    )
+    // Tags
 
     default:
       return state;

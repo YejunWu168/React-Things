@@ -1,10 +1,33 @@
 import React from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/fontawesome-free-solid";
+import { constants } from '../../utils/constants'
 
 class Subtask extends React.Component {
+  state = {
+    value: ''
+  }
+
   componentDidMount() {
     this.textInput.focus();
+  }
+
+  handleChange = e => {
+    this.setState({value: e.target.value })
+  }
+
+  handleKeydown = e => {
+    if (e.keyCode !== constants.ENTER_KEY){
+      return
+    }
+
+    this.props.addSubtask(this.state.value)
+    this.props.addSubtask('')
+  }
+
+  handleBlur = () => {
+    console.log('blurred')
+    // this.props.addSubtask(this.state.value)
   }
 
   renderCheckbox = () => {
@@ -13,7 +36,7 @@ class Subtask extends React.Component {
         <div
           type="checkbox"
           className="subtasks__checkbox bounceIn"
-          onClick={() => this.props.handleSubtaskChecked(this.props.subtask.id)}
+          // onClick={() => this.props.handleSubtaskChecked(this.props.subtask.id)}
         />
       );
     } else {
@@ -21,7 +44,7 @@ class Subtask extends React.Component {
         <FontAwesomeIcon
           className="bounceIn"
           icon={faCheck}
-          onClick={() => this.props.handleSubtaskChecked(this.props.subtask.id)}
+          // onClick={() => this.props.handleSubtaskChecked(this.props.subtask.id)}
         />
       );
     }
@@ -37,10 +60,11 @@ class Subtask extends React.Component {
             this.textInput = input;
           }}
           type="text"
-          onChange={this.props.handleSubtaskChange(this.props.subtask.id)}
-          onKeyDown={this.props.handleKeyDownSubtaskField(this.props.subtask.id)}
-          defaultValue={this.props.subtask ? this.props.subtask.text : ""}
-          onFocus={this.props.handleSubtaskChange}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeydown}
+          onBlur={this.handleBlur}
+          defaultValue={this.props.subtask ? this.props.subtask.value : ""}
+          // onFocus={this.props.handleSubtaskChange}
         />
       </li>
     );

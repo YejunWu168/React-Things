@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import { constants } from '../../utils/constants'
 
 class InputButton extends Component {
   state = {
     value: '',
-    clicked: false
+    active: false
   }
 
   handleChange = e => {
@@ -12,41 +13,67 @@ class InputButton extends Component {
   }
 
   handleClick = () => {
-    this.props.onClick(this.state.value)
-    this.props.registerButton();
     this.setState({
-      clicked: true
+      active: true
     })
 
-    // delay setting focus so it will not be blocked by disabled state
+    if (this.textInput !== null) {
+      this.textInput.focus();
+    }
+  }
+
+  handleKeydown = e => {
+    if (e.keyCode !== constants.ENTER_KEY){
+      return
+    }
+
+    if (this.state.value.length > 0) {
+      this.props.addItem(this.state.value)
+    }
+
+    this.setState({value: ''});
+  }
+
+  handleBlur = () => {
+    if (this.state.value.length > 0) {
+      this.props.addItem(this.state.value) 
+    }
+
+    this.setState({value: ''});
+
     window.setTimeout(() => {
-      if (this.textInput !== null) {
-        this.textInput.focus();
-      }
-    }, 500);
+      this.setState({
+        active: false
+      })
+    }, 50)
+  }
+
+  handleFocus = () => {
+    this.setState({
+      active: true
+    })
   }
 
   render() {
-    const { icon } = this.props
-    const { clicked } = this.state
+    const { icon, buttonType } = this.props
+    const { active } = this.state
 
     return (
       
-      <div className={`field-btn ${clicked ? 'field-btn__expanded' : ''}`} >
+      <div className={`field-btn ${active ? 'field-btn__expanded' : ''}`} >
         <input
-         type="text"
          className="todo-btn__input"
+         type="text"
+         placeholder={ buttonType }
          onChange={this.handleChange}
-         onKeyDown={this.handleKeyDownTagField}
+         onKeyDown={this.handleKeydown}
          value={this.state.value}
          style={{
-           width: clicked ? "10rem" : "0rem"
+           width: active ? "10rem" : "0rem"
          }}
-
+         onBlur={this.handleBlur}
+         onFocus={this.handleFocus}
          // prevent user from tabbing through this field when it's not open yet
-         disabled={
-           clicked ? false : "disabled"
-          }
 
           ref={input => {
             this.textInput = input

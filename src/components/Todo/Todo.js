@@ -55,11 +55,11 @@ class Todo extends Component {
     })
   }
 
-  onClick = () => {
+  handleClick = () => {
     this.props.setTodoActive()
   }
 
-  onEnter = e => {
+  handleKeyDown = e => {
     if (e.keyCode !== constants.ENTER_KEY) {
       return;
     }
@@ -81,7 +81,9 @@ class Todo extends Component {
     const {
       todo,
       addSubtask,
-      addTag
+      saveSubtask,
+      addTag,
+      saveTag
     } = this.props;
 
     const {
@@ -93,7 +95,7 @@ class Todo extends Component {
       <li className={`todo ${todo.isActive ? "highlight" : ""} ${editing ? "expanded-todo" : ""} ${
           todo.isChecked ? "checkbox-clicked" : ""}`}
         style={{ minHeight: `${this.getMinHeight()}px` }}
-        onClick={this.onClick}
+        onClick={this.handleClick}
         onDoubleClick={this.expand}
       >
       <div className="main-todo">
@@ -107,17 +109,18 @@ class Todo extends Component {
           tags={todo.tags}
           editing={editing}
           handleChange={this.handleChange}
-          onEnter={this.onEnter}
+          onEnter={this.handleKeyDown}
         />
       </div>
       { editing &&
         <EditTodo>
-          <SubtaskList 
-            subtasks={todo.subtasks}
-            handleSubtaskChecked={this.handleSubtaskChecked}
-            handleKeyDownSubtaskField={this.handleKeyDownSubtaskField}
-            handleSubtaskChange={this.handleSubtaskChange}
-          />
+          {
+            todo.subtasks.length > 0 && 
+            <SubtaskList 
+                subtasks={todo.subtasks}
+                addSubtask={addSubtask}
+              />
+          }
           { todo.tags.length > 0 && 
             <ExpandedTags
               handleAddTag={this.handleAddTag}
@@ -128,17 +131,20 @@ class Todo extends Component {
             />
           }
           <InputButtons>
-            <InputButton buttonType={todo.subtasks} icon={faListUl} onClick={addSubtask} />
-            <InputButton buttonType={todo.tags} icon={faTag} onClick={addTag}>
+          {
+            todo.subtasks.length === 0 && 
+            <InputButton todoId={todo.id} buttonType="subtasks" icon={faListUl} addItem={addSubtask} />
+          }
+            <InputButton todoId={todo.id} buttonType="tags" icon={faTag} addItem={addTag}>
             </InputButton>  
           </InputButtons>
         </EditTodo>
       }
-        {todo.subtasks.length > 0 && 
-          <div className="rc-line-container">
-            <Line percent={this.props.progress} strokeColor={this.props.progressColor()} strokeWidth="10" trailWidth="10" />
-          </div>
-        }
+      {/* {todo.subtasks.length > 0 && 
+        <div className="rc-line-container">
+          <Line percent={this.props.progress} strokeColor={this.props.progressColor()} strokeWidth="10" trailWidth="10" />
+        </div>
+      } */}
       </li>
     );
   }

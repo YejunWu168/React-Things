@@ -8,9 +8,12 @@ export const SET_ALL_TODOS_INACTIVE ='SET_ALL_TODOS_INACTIVE'
 
 // Subtasks Actions 
 export const ADD_SUBTASK = 'ADD_SUBTASK'
+export const SAVE_SUBTASK = 'SAVE_SUBTASK'
+export const TOGGLE_SUBTASK_CHECKED = 'TOGGLE_SUBTASK_CHECKED'
 
 // Tags Actions
 export const ADD_TAG = 'ADD_TAG'
+export const SAVE_TAG = 'SAVE_TAG'
 
 // UI Actions
 export const TOGGLE_DELETE_TODO_BUTTON = 'TOGGLE_DELETE_TODO_BUTTON'

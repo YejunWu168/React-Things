@@ -2,18 +2,16 @@ import React from 'react';
 
 import Subtask from './Subtask';
 
-export const SubtaskList = ({subtasks, editing, id, handleSubtaskChecked, handleKeyDownSubtaskField, handleSubtaskChange}) => (
-    <ul className="subtasks" style={{ display: editing ? "block" : "none" }}>
+export const SubtaskList = ({subtasks, addSubtask}) => (
+    <ul className="subtasks">
       {subtasks.map(subtask => (
         <Subtask
-          key={id}
+          key={subtask.id}
           subtask={subtask}
-          handleSubtaskChecked={handleSubtaskChecked}
-          handleKeyDownSubtaskField={handleKeyDownSubtaskField}
-          handleSubtaskChange={handleSubtaskChange}
+          addSubtask={addSubtask}
         />
       ))}
     </ul>
 );
 
-export default SubtaskList;
+export default SubtaskList
