@@ -1,0 +1,26 @@
+import { connect } from 'react-redux';
+import { setTodoActive, saveTodo, addSubtask, addTag, saveSubtask, saveTag, toggleChecked } from '../actions'
+
+import Todo from '../components/Todo/Todo'
+
+const mapDispatchToProps = (dispatch, props) => ({ 
+
+  setTodoActive: id => dispatch(setTodoActive(id)),
+
+  toggleChecked: id => dispatch(toggleChecked(id)),
+
+  updateTodo: text => {
+    dispatch(saveTodo(props.todo.id, text)) 
+    document.addEventListener("keydown", props.onSpacebar)
+  },
+
+  addSubtask: text => dispatch(addSubtask(props.todo.id, text)),
+  saveSubtask: (id, text) => dispatch(saveSubtask(props.todo.id, id, text)),
+
+  addTag: text => dispatch(addTag(props.todo.id, text)),
+  saveTag: text => dispatch(saveTag(text))
+});
+
+const TodoContainer = connect(null, mapDispatchToProps)(Todo)
+
+export default TodoContainer

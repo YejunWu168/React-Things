@@ -141,7 +141,7 @@ class DashboardContainer extends Component {
     } = this.props
 
     return (
-        <main className="wrapper" onClick={this.removeActiveStatesTodo}>
+        <main className="wrapper">
           <Header progress={this.state.progress} pageTitle={params.page} progressColor={this.progressColor} />
           <section>
             {this.renderFilterTags()}
@@ -159,7 +159,6 @@ class DashboardContainer extends Component {
 
 const mapDispatchToProps = (dispatch, {params}) => ({
   addTodo: filter => dispatch(addTodo(params.page)),
-  setAllTodosInactive: () => dispatch(setAllTodosInactive())
 });
 
 export default connect(null, mapDispatchToProps)(DashboardContainer);

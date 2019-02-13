@@ -16,7 +16,8 @@ class Todo extends Component {
 
   state = {
     value: '',
-    editing: true
+    editing: false,
+    active: false
   }
 
   static propTypes = {
@@ -35,6 +36,7 @@ class Todo extends Component {
   }
 
   getMinHeight = () => {
+    //TODO: Use different method for calculating todo height
     if (this.state.editing) {
       const subtaskCount = this.props.todo.subtasks.length;
 
@@ -62,6 +64,9 @@ class Todo extends Component {
 
   handleClick = () => {
     this.props.setTodoActive(this.props.todo.id)
+    this.setState({
+      active: true
+    })
   }
 
   handleKeyDown = e => {
@@ -69,7 +74,7 @@ class Todo extends Component {
       return;
     }
 
-    this.props.updateTodo(this.props.todo.id, this.state.value)
+    this.props.updateTodo(this.state.value)
     this.setState({
       editing: false
     })
@@ -78,20 +83,22 @@ class Todo extends Component {
   handleClickOutside = () => {
     this.props.updateTodo(this.state.value);
     this.setState({
-      editing: false
+      editing: false,
+      active: false
     })
   };
 
   render() {
-    const {id, active, completed, filter, addTag } = this.props.todo;
+    const {todo, addSubtask, saveSubtask, addTag} = this.props;
     const {
       editing,
-      value
+      value,
+      active
     } = this.state;
 
     return (
       <li className={`todo ${active ? "highlight" : ""} ${editing ? "expanded-todo" : ""} ${
-          completed ? "checkbox-clicked" : ""}`}
+          todo.completed ? "checkbox-clicked" : ""}`}
           // style={{ minHeight: `${this.getMinHeight()}px` }}
           onClick={this.handleClick}
           onDoubleClick={this.expand}
@@ -103,8 +110,8 @@ class Todo extends Component {
           onChange={this.handleCheck}
         />
         <Label 
-          completed={completed}
-          value={value}
+          completed={todo.completed}
+          value={todo.value}
           editing={editing}
           handleChange={this.handleChange}
           onEnter={this.handleKeyDown}
@@ -112,13 +119,15 @@ class Todo extends Component {
       </div>
       { editing &&
         <EditTodo>
-          {/* {
+          {
             todo.subtasks.length > 0 && 
             <SubtaskList 
                 subtasks={todo.subtasks}
+                todoId={todo.id}
                 addSubtask={addSubtask}
+                saveSubtask={saveSubtask}
               />
-          } */}
+          } 
           {/* { todo.tags.length > 0 && 
             <ExpandedTags
               handleAddTag={this.handleAddTag}
@@ -127,13 +136,13 @@ class Todo extends Component {
               tags={todo.tags}
               tagList={this.tagList}
             />
-          } */}
+          */}
           <InputButtons>
-          {/* {
+          {
             todo.subtasks.length === 0 && 
             <InputButton todoId={todo.id} buttonType="subtasks" icon={faListUl} addItem={addSubtask} />
-          } */}
-            <InputButton todoId={id} buttonType="tags" icon={faTag} addItem={addTag}>
+          }
+            <InputButton todoId={todo.id} buttonType="tags" icon={faTag} addItem={addTag}>
             </InputButton>  
           </InputButtons>
         </EditTodo>

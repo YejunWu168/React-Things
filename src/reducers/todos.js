@@ -1,53 +1,33 @@
 import * as types from '../actions/types';
+import todo from './todo'
+import subtasks from './subtasks'
 import { combineReducers } from 'redux'
 
-const todosState = (state = [], action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_TODO:
-      return [
-        ...state,
-        {
-          filter: action.filter,
-          value: '',
-          progress: 0,
-          editing: true,
-          id: action.id,
-          completed: false,
-          active: false
-        }
-      ]
-
-    case types.SAVE_TODO: 
-      return state.map(
-        todo => todo.id === action.id ? {...todo, value: action.payload} : todo
-      )
-      
-    case types.SET_TODO_ACTIVE:
-      return state.map((todo) => {
-        if (todo.id === action.id) {
-          return {...todo, active: true}
-        } else {
-          return {...todo, active: false}
-        }
-      })
-
-    case types.SET_ALL_TODOS_INACTIVE:
-      return state.map((todo) => ({...todo, active: false }))
-    
+    case types.SAVE_TODO:
     case types.TOGGLE_CHECKED:
-      return state.map((todo) => {
-        if (todo.id === action.id) {
-          return {...todo, completed: !todo.completed}
-        }
-        return todo
-      })
+      return {
+          ...state,
+          [action.id]: todo(state[action.id], action),
+        };
+
+    case types.ADD_SUBTASK:
+    case types.SAVE_SUBTASK: 
+      return {
+        ...state,
+        [action.todoId]: {
+          ...state[action.todoId], 
+          subtasks: subtasks(state[action.todoId].subtasks, action)}
+      }
 
     default:
       return state;
   }
 };
 
-const allTodoIds = (state = [], action) => {
+const allIds = (state = [], action) => {
   switch (action.type) {
     case types.ADD_TODO:
       return [...state, action.id];
@@ -58,20 +38,25 @@ const allTodoIds = (state = [], action) => {
 
 
 const todos = combineReducers({
-  todosState,
-  allTodoIds
+  byId,
+  allIds
 })
 
 export default todos 
 
+const getAllTodos = (state) =>
+  state.allIds.map(id => state.byId[id]);
+
+
 export const getVisibleTodos = (state, filter) => {
+  const allTodos = getAllTodos(state);
   switch(filter) {
     case types.INBOX:
-      return state.todosState.filter(todo => todo.filter === types.INBOX)
+      return allTodos.filter(todo => todo.filter === types.INBOX)
     case types.TODAY: 
-      return state.todosState.filter(todo => todo.filter === types.TODAY)
+      return allTodos.filter(todo => todo.filter === types.TODAY)
     case types.WORK: 
-      return state.todosState.filter(todo => todo.filter === types.WORK)
+      return allTodos.filter(todo => todo.filter === types.WORK)
     default:
     throw new Error(`Unknown filter: ${filter}.`);
   }

@@ -21,13 +21,8 @@ class Subtask extends React.Component {
       return
     }
 
-    this.props.addSubtask(this.state.value)
+    this.props.saveSubtask(this.props.subtask.id, this.state.value)
     this.props.addSubtask('')
-  }
-
-  handleBlur = () => {
-    console.log('blurred')
-    // this.props.addSubtask(this.state.value)
   }
 
   renderCheckbox = () => {
@@ -62,9 +57,8 @@ class Subtask extends React.Component {
           type="text"
           onChange={this.handleChange}
           onKeyDown={this.handleKeydown}
-          onBlur={this.handleBlur}
           defaultValue={this.props.subtask ? this.props.subtask.value : ""}
-          // onFocus={this.props.handleSubtaskChange}
+          onFocus={this.handleChange}
         />
       </li>
     );
