@@ -23,13 +23,13 @@ const Label = ({handleChange, value, editing, tags, onEnter}) => (
                 </span>
                 )}
             </label>
-            <div className="tags">
+            {/* <div className="tags">
                 {tags.map(tag => (
                 <span key={uuid()} className="tag">
                     {tag}
                 </span>
                 ))}
-            </div>
+            </div> */}
         </Fragment>
 )
 

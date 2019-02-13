@@ -1,19 +1,15 @@
 import React from "react";
 import { array, func } from 'prop-types';
 
-import TodoContainer from "../containers/TodoContainer";
+import Todo from "./Todo/Todo";
 
-const TodoList = props => (
+const TodoList = ({todos, ...dispatchers}) => (
     <ul>
-      {props.todos ? props.todos.map(todo => (
-        <TodoContainer
+      {todos ? todos.map(todo => (
+        <Todo
           key={todo.id}
           todo={todo}
-          handleChecked={props.handleChecked}
-          onSpacebar={props.onSpacebar}
-          getProgressTodos={props.getProgressTodos}
-          handleAddTag={props.handleAddTag}
-          usedTags={props.usedTags}
+          {...dispatchers}
         />
       )) : null}
     </ul>

@@ -6,9 +6,8 @@ const Header = props => (
     <div className="progress-container">
       <Circle percent={props.progress} strokeWidth="7" trailWidth="7" strokeColor={props.progressColor()} />
     </div>
-    <h1 className="title">{props.title}</h1>
+    <h1 className="title">{props.pageTitle}</h1>
   </header>
 );
 
-const mapStateToProps = state => {}
 export default Header;

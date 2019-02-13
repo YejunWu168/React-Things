@@ -31,7 +31,7 @@ class Subtask extends React.Component {
   }
 
   renderCheckbox = () => {
-    if (this.props.subtask.isChecked === false) {
+    if (this.props.subtask.completed === false) {
       return (
         <div
           type="checkbox"
@@ -55,7 +55,7 @@ class Subtask extends React.Component {
       <li className="subtasks__item">
         {this.renderCheckbox()}
         <input
-          className={`subtasks__field ${this.props.subtask.isChecked ? "completed" : ""}`}
+          className={`subtasks__field ${this.props.subtask.completed ? "completed" : ""}`}
           ref={input => {
             this.textInput = input;
           }}

@@ -3,18 +3,18 @@ import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { faInbox, faBriefcase, faStar } from "@fortawesome/fontawesome-free-solid";
 import NavLink from "./NavLink.js";
 
-const SidebarNav = props => (
+const Nav = props => (
   <nav>
     <ul className="nav-list">
-      <NavLink to="/" className="inbox" todoCount={props.todoCount}>
+      <NavLink to="/inbox" className="inbox">
         <FontAwesomeIcon icon={faInbox} className="inbox-icon" fixedWidth />
         Inbox
       </NavLink>
-      <NavLink to="/today" todoCount={props.todoCount}>
+      <NavLink to="/today">
         <FontAwesomeIcon icon={faStar} className="star-icon" fixedWidth />
         Today
       </NavLink>
-      <NavLink to="/work" todoCount={props.todoCount}>
+      <NavLink to="/work">
         <FontAwesomeIcon icon={faBriefcase} className="briefcase-icon" fixedWidth />
         Work
       </NavLink>
@@ -22,4 +22,4 @@ const SidebarNav = props => (
   </nav>
 );
 
-export default SidebarNav;
+export default Nav;

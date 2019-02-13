@@ -30,7 +30,8 @@ class Todo extends Component {
   }
 
   componentDidMount() {
-    this.props.getProgressTodos();
+    // this.props.getProgressTodos(); 
+    console.log(this.props);
   }
 
   getMinHeight = () => {
@@ -48,6 +49,10 @@ class Todo extends Component {
     this.setState({value: e.target.value})
   }
 
+  handleCheck = () => {
+    this.props.toggleChecked(this.props.todo.id);
+  }
+
   expand = () => {
     this.setState({
       editing: true,
@@ -56,7 +61,7 @@ class Todo extends Component {
   }
 
   handleClick = () => {
-    this.props.setTodoActive()
+    this.props.setTodoActive(this.props.todo.id)
   }
 
   handleKeyDown = e => {
@@ -64,7 +69,7 @@ class Todo extends Component {
       return;
     }
 
-    this.props.updateTodo(this.state.value)
+    this.props.updateTodo(this.props.todo.id, this.state.value)
     this.setState({
       editing: false
     })
@@ -78,35 +83,28 @@ class Todo extends Component {
   };
 
   render() {
-    const {
-      todo,
-      addSubtask,
-      saveSubtask,
-      addTag,
-      saveTag
-    } = this.props;
-
+    const {id, active, completed, filter, addTag } = this.props.todo;
     const {
       editing,
       value
     } = this.state;
 
     return (
-      <li className={`todo ${todo.isActive ? "highlight" : ""} ${editing ? "expanded-todo" : ""} ${
-          todo.isChecked ? "checkbox-clicked" : ""}`}
-        style={{ minHeight: `${this.getMinHeight()}px` }}
-        onClick={this.handleClick}
-        onDoubleClick={this.expand}
+      <li className={`todo ${active ? "highlight" : ""} ${editing ? "expanded-todo" : ""} ${
+          completed ? "checkbox-clicked" : ""}`}
+          // style={{ minHeight: `${this.getMinHeight()}px` }}
+          onClick={this.handleClick}
+          onDoubleClick={this.expand}
       >
       <div className="main-todo">
         <input
           className="toggle"
           type="checkbox"
+          onChange={this.handleCheck}
         />
         <Label 
-          isChecked={todo.isChecked}
+          completed={completed}
           value={value}
-          tags={todo.tags}
           editing={editing}
           handleChange={this.handleChange}
           onEnter={this.handleKeyDown}
@@ -114,14 +112,14 @@ class Todo extends Component {
       </div>
       { editing &&
         <EditTodo>
-          {
+          {/* {
             todo.subtasks.length > 0 && 
             <SubtaskList 
                 subtasks={todo.subtasks}
                 addSubtask={addSubtask}
               />
-          }
-          { todo.tags.length > 0 && 
+          } */}
+          {/* { todo.tags.length > 0 && 
             <ExpandedTags
               handleAddTag={this.handleAddTag}
               handleAddTags={this.handleAddTags}
@@ -129,13 +127,13 @@ class Todo extends Component {
               tags={todo.tags}
               tagList={this.tagList}
             />
-          }
+          } */}
           <InputButtons>
-          {
+          {/* {
             todo.subtasks.length === 0 && 
             <InputButton todoId={todo.id} buttonType="subtasks" icon={faListUl} addItem={addSubtask} />
-          }
-            <InputButton todoId={todo.id} buttonType="tags" icon={faTag} addItem={addTag}>
+          } */}
+            <InputButton todoId={id} buttonType="tags" icon={faTag} addItem={addTag}>
             </InputButton>  
           </InputButtons>
         </EditTodo>

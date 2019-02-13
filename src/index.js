@@ -2,8 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "normalize.css/normalize.css";
 import './styles/main.scss';
-import App from "./App";
+import Root from "./components/Root";
 import registerServiceWorker from "./registerServiceWorker";
+import { createStore } from 'redux';
+import reducer from './reducers';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+
+ReactDOM.render(<Root store={store}/>, document.getElementById("root"));
 registerServiceWorker();

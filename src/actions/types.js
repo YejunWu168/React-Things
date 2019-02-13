@@ -1,3 +1,8 @@
+// Routing actions
+export const INBOX = 'inbox'
+export const TODAY = 'today'
+export const WORK = 'work'
+
 // Todos Actions
 export const ADD_TODO = 'ADD_TODO'
 export const SAVE_TODO = 'SAVE_TODO'

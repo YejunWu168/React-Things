@@ -51,7 +51,7 @@ class DashboardContainer extends Component {
 
   handleRemoveSelected = () => {
     this.setState(prevState => ({
-      todos: prevState.todos.filter(todo => todo.isChecked !== true),
+      todos: prevState.todos.filter(todo => todo.completed !== true),
       buttonDisabled: true
     }));
   };
@@ -88,9 +88,9 @@ class DashboardContainer extends Component {
   getProgressTodos = () => {
     const todos = this.state.todos;
     const todosCount = todos.length;
-    const isCheckedCount = todos.filter(obj => obj.isChecked === true).length;
+    const completedCount = todos.filter(obj => obj.completed === true).length;
 
-    const progress = (100 / todosCount) * isCheckedCount;
+    const progress = (100 / todosCount) * completedCount;
 
     this.setState(prevState => ({
       progress: (prevState.progress = progress)
@@ -136,12 +136,16 @@ class DashboardContainer extends Component {
   };
 
   render() {
+    const {
+      params
+    } = this.props
+
     return (
         <main className="wrapper" onClick={this.removeActiveStatesTodo}>
-          <Header progress={this.state.progress} title={this.props.title} progressColor={this.progressColor} />
+          <Header progress={this.state.progress} pageTitle={params.page} progressColor={this.progressColor} />
           <section>
             {this.renderFilterTags()}
-            <TodoListContainer onSpacebar={this.onSpacebar}/>
+            <TodoListContainer onSpacebar={this.onSpacebar} params={params}/>
           </section>
           <ActionBar 
             handleAddTodo={this.handleAddTodo}
@@ -153,10 +157,9 @@ class DashboardContainer extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch(addTodo(text)),
+const mapDispatchToProps = (dispatch, {params}) => ({
+  addTodo: filter => dispatch(addTodo(params.page)),
   setAllTodosInactive: () => dispatch(setAllTodosInactive())
 });
-
 
 export default connect(null, mapDispatchToProps)(DashboardContainer);
