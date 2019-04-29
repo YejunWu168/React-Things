@@ -10,6 +10,7 @@ const TodoList = ({todos, onSpacebar}) => (
           key={todo.id}
           todo={todo}
           onSpacebar={onSpacebar}
+          editing={todo.editing}
         />
       )) : null}
     </ul>

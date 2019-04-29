@@ -16,7 +16,6 @@ class Todo extends Component {
 
   state = {
     value: '',
-    editing: false,
     active: false
   }
 
@@ -37,7 +36,7 @@ class Todo extends Component {
 
   getMinHeight = () => {
     //TODO: Use different method for calculating todo height
-    if (this.state.editing) {
+    if (this.props.editing) {
       const subtaskCount = this.props.todo.subtasks.length;
 
       // 20 is initial height of the task, 32 is the height of a subtask list element
@@ -56,8 +55,9 @@ class Todo extends Component {
   }
 
   expand = () => {
+    this.props.openTodo();
+    
     this.setState({
-      editing: true,
       setActive: true
     })
   }
@@ -80,10 +80,9 @@ class Todo extends Component {
     })
   }
 
-  handleClickOutside = () => {
+  handleClickOutside = (e) => {
     this.props.updateTodo(this.state.value);
     this.setState({
-      editing: false,
       active: false
     })
   };
@@ -91,13 +90,12 @@ class Todo extends Component {
   render() {
     const {todo, addSubtask, saveSubtask, addTag} = this.props;
     const {
-      editing,
       value,
       active
     } = this.state;
 
     return (
-      <li className={`todo ${active ? "highlight" : ""} ${editing ? "expanded-todo" : ""} ${
+      <li className={`todo ${active ? "highlight" : ""} ${todo.editing ? "expanded-todo" : ""} ${
           todo.completed ? "checkbox-clicked" : ""}`}
           // style={{ minHeight: `${this.getMinHeight()}px` }}
           onClick={this.handleClick}
@@ -112,12 +110,12 @@ class Todo extends Component {
         <Label 
           completed={todo.completed}
           value={todo.value}
-          editing={editing}
+          editing={todo.editing}
           handleChange={this.handleChange}
           onEnter={this.handleKeyDown}
         />
       </div>
-      { editing &&
+      { todo.editing &&
         <EditTodo>
           {
             todo.subtasks.length > 0 && 

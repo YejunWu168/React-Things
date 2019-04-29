@@ -1,12 +1,15 @@
 import * as types from '../actions/types';
 import todo from './todo'
 import subtasks from './subtasks'
+import tags from './tags'
 import { combineReducers } from 'redux'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_TODO:
     case types.SAVE_TODO:
+    case types.OPEN_TODO:
+    case types.CLOSE_TODO:
     case types.TOGGLE_CHECKED:
       return {
           ...state,
@@ -20,6 +23,14 @@ const byId = (state = {}, action) => {
         [action.todoId]: {
           ...state[action.todoId], 
           subtasks: subtasks(state[action.todoId].subtasks, action)}
+      }
+
+    case types.ADD_TAG:
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          tags: tags(state[action.id].tags, action)}
       }
 
     default:
@@ -36,7 +47,6 @@ const allIds = (state = [], action) => {
   }
 }
 
-
 const todos = combineReducers({
   byId,
   allIds
@@ -47,7 +57,9 @@ export default todos
 const getAllTodos = (state) =>
   state.allIds.map(id => state.byId[id]);
 
+// Selector
 
+// return allTodos.filter(todo => todo.filter === filter)
 export const getVisibleTodos = (state, filter) => {
   const allTodos = getAllTodos(state);
   switch(filter) {
